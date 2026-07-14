@@ -13,7 +13,7 @@ export default function Header() {
         </a>
         <a href="#" className="text-label-sm text-on-surface-variant hover:text-primary transition-colors duration-300 uppercase">Portfolio</a>
       </nav>
-      <button className="hidden md:flex items-center gap-2 bg-primary rounded-full px-6 py-3 text-label-sm text-on-primary uppercase font-bold border border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 custom-cursor-target mr-2">
+      <button className="hidden md:flex items-center gap-2 bg-primary rounded-full px-6 py-3 text-label-sm text-on-primary uppercase font-bold border border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300 mr-2">
         Start A Project
         <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>arrow_forward</span>
       </button>
