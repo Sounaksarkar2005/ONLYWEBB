@@ -6,40 +6,20 @@ import {
 } from 'lucide-react';
 
 import BackgroundCanvas from './components/BackgroundCanvas';
-
+import DesignInspector from './components/DesignInspector';
 import ServiceCards from './components/ServiceCards';
 import ServiceConfigurator from './components/ServiceConfigurator';
-import Services from './components/Services';
-import Hero from './components/Hero';
-import CTA from './components/CTA';
 import { CanvasConfig, AccentColor } from './types';
 
 export default function App() {
-  const [accentColor] = useState<AccentColor>('pure_mono');
+  const [accentColor, setAccentColor] = useState<AccentColor>('pure_mono');
   const [focusedService, setFocusedService] = useState<string>('');
   
   // Real-time digital clock state
   const [timeStr, setTimeStr] = useState<string>('');
 
-  const [activePage, setActivePage] = useState<'home' | 'services'>('home');
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash === '#services-section') {
-        setActivePage('services');
-      } else {
-        setActivePage('home');
-      }
-    };
-    
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
   // 3D Canvas Default Config
-  const [canvasConfig] = useState<CanvasConfig>({
+  const [canvasConfig, setCanvasConfig] = useState<CanvasConfig>({
     style: 'wireframe_3d',
     object3DType: 'topo_blob',
     object3DScale: 1.4,
@@ -164,67 +144,67 @@ export default function App() {
       {/* 3D Interactive Vector Background Canvas */}
       <BackgroundCanvas config={canvasConfig} accentColor={accentColor} />
 
-
+      {/* Floating Design Inspector / Explanation Panel */}
+      <DesignInspector 
+        config={canvasConfig} 
+        setConfig={setCanvasConfig} 
+        accentColor={accentColor} 
+        setAccentColor={setAccentColor} 
+      />
 
       {/* Core Layout Wrapper */}
       <div className="relative z-10 flex flex-col min-h-screen">
         
         {/* Navigation Bar */}
-        <div className="fixed top-0 left-0 right-0 w-full z-50 pt-4 px-4 pointer-events-none">
-          <header id="app-header" className="pointer-events-auto flex items-center justify-between max-w-7xl mx-auto px-6 py-4 bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 rounded-full shadow-lg">
+        <header id="app-header" className="sticky top-0 z-40 w-full border-b border-zinc-900 bg-[#050505]/70 backdrop-blur-md">
+          <div className="max-w-7xl mx-auto px-4 md:px-8 h-20 flex items-center justify-between">
             {/* Logo */}
-            <a href="#" className="flex items-center">
-              <span className="font-brand font-bold text-3xl tracking-wider text-white uppercase">
-                ONLYWEBB
+            <a href="#" className="flex items-center gap-3 group">
+              <div className="flex items-center gap-2.5">
+                <div className="h-6 w-6 rounded-full border border-zinc-700 flex items-center justify-center">
+                  <div className={`h-2.5 w-2.5 rounded-full inline-block ${
+                    accentColor === 'cyber_amber' ? 'bg-amber-500 shadow-[0_0_8px_#f59e0b]' :
+                    accentColor === 'toxic_green' ? 'bg-emerald-500 shadow-[0_0_8px_#22c55e]' :
+                    accentColor === 'neon_cobalt' ? 'bg-blue-500 shadow-[0_0_8px_#3b82f6]' :
+                    'bg-white'
+                  }`} />
+                </div>
+                <span className="font-display font-bold text-lg tracking-wider text-white uppercase">
+                  ONLYWEBB
+                </span>
+              </div>
+              <span className="hidden sm:inline font-mono text-[9px] text-zinc-500 border border-zinc-800 px-2 py-0.5 rounded-md">
+                v2.6_ENGINE
               </span>
             </a>
 
             {/* Nav links */}
-            <nav className="hidden md:flex items-center gap-8 font-mono text-[11px] font-semibold text-neutral-400 tracking-widest uppercase">
-              <a href="#" className={`relative flex flex-col items-center transition-colors ${activePage === 'home' ? 'text-white' : 'hover:text-white'}`}>
-                HOME
-                {activePage === 'home' && (
-                  <>
-                    <motion.span layoutId="nav-underline" className="absolute -bottom-1 w-full border-b-[1.5px] border-white"></motion.span>
-                    <motion.span layoutId="nav-dot" className="absolute -bottom-2.5 w-[3px] h-[3px] bg-white rounded-full"></motion.span>
-                  </>
-                )}
+            <nav className="hidden md:flex items-center gap-8 font-mono text-xs text-neutral-400">
+              <a href="#services-section" className="hover:text-white transition-colors">
+                [ SERVICES ]
               </a>
-              <a href="#about" className="hover:text-white transition-colors">
-                ABOUT
+              <a href="#project-configurator-container" className="hover:text-white transition-colors">
+                [ ARCHITECTURE_CONFIG ]
               </a>
-              <a href="#services-section" className={`relative flex flex-col items-center transition-colors ${activePage === 'services' ? 'text-white' : 'hover:text-white'}`}>
-                SERVICES
-                {activePage === 'services' && (
-                  <>
-                    <motion.span layoutId="nav-underline" className="absolute -bottom-1 w-full border-b-[1.5px] border-white"></motion.span>
-                    <motion.span layoutId="nav-dot" className="absolute -bottom-2.5 w-[3px] h-[3px] bg-white rounded-full"></motion.span>
-                  </>
-                )}
-              </a>
-              <a href="#portfolio" className="hover:text-white transition-colors">
-                PORTFOLIO
+              <a href="#contact-section" className="hover:text-white transition-colors">
+                [ GET_IN_TOUCH ]
               </a>
             </nav>
 
-            {/* Right side: Time / Button */}
-            <div className="flex items-center gap-6">
-              {/* Server Clock */}
-              <div className="hidden lg:flex items-center gap-2 font-mono text-[10px] text-neutral-500">
+            {/* Time / System Status Display */}
+            <div className="flex items-center gap-4 font-mono text-[10px] text-neutral-500">
+              <span className="hidden lg:inline border-r border-white/15 pr-4 text-right">
+                <span className="block text-[8px] text-neutral-600">CLIENT CONNECTION</span>
+                <span className="text-emerald-500 font-bold uppercase">● SECURE_EDGE</span>
+              </span>
+              <div>
                 <span className="block text-[8px] text-neutral-600 text-right">SERVER CLOCK</span>
                 <span className="text-neutral-300 tracking-wide font-medium">{timeStr || '00:00:00 UTC'}</span>
               </div>
-              
-              <button className="flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors">
-                START A PROJECT
-                <ArrowRight className="w-3 h-3" />
-              </button>
             </div>
-          </header>
-        </div>
+          </div>
+        </header>
 
-        {activePage === 'home' ? (
-          <>
         {/* Hero Section */}
         <section id="hero-section" className="relative flex-1 flex flex-col justify-center items-center py-20 lg:py-32 max-w-7xl mx-auto px-4 md:px-8 text-center">
           
@@ -481,14 +461,6 @@ export default function App() {
             </AnimatePresence>
           </div>
         </section>
-          </>
-        ) : (
-          <main className="flex-grow pt-32 relative z-10 w-full mx-auto bg-mesh text-on-background font-body-md">
-            <Hero />
-            <Services />
-            <CTA />
-          </main>
-        )}
 
         {/* Footer */}
         <footer id="app-footer" className="mt-auto border-t border-zinc-900 bg-[#050505]/80 backdrop-blur-md">
@@ -500,7 +472,7 @@ export default function App() {
                 <div className="h-5 w-5 rounded-full border border-zinc-800 flex items-center justify-center">
                   <div className={`h-2 w-2 rounded-full inline-block ${getAccentBg()}`} />
                 </div>
-                <span className="font-brand font-bold text-sm tracking-wider text-white uppercase">
+                <span className="font-display font-bold text-sm tracking-wider text-white uppercase">
                   ONLYWEBB
                 </span>
               </div>

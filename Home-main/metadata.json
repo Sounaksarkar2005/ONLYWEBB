@@ -1,0 +1,8 @@
+{
+  "name": "Remix: ONLYWEBB",
+  "description": "A sleek, black-and-white minimalist design concept for a next-generation web development service, featuring an interactive 3D abstract background.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,40 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'CSRiposte';
+  src: url('/fonts/CSRiposte-Regular_demo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-brand: "CSRiposte", sans-serif;
+
   --color-background: #131313;
   --color-on-background: #e2e2e2;
   --color-primary: #ffffff;
   --color-on-primary: #2f3131;
   --color-primary-container: #e2e2e2;
   --color-on-primary-container: #636565;
-  --color-secondary: #c8c6c5;
-  --color-on-secondary: #313030;
-  --color-secondary-container: #474746;
-  --color-surface: #131313;
   --color-surface-variant: #353535;
   --color-on-surface: #e2e2e2;
   --color-on-surface-variant: #c4c7c8;
-  --color-surface-container: #1f1f1f;
-  --color-surface-bright: #393939;
   --color-outline-variant: #444748;
-
-  --font-display-lg: 'Montserrat', sans-serif;
-  --font-headline-lg: 'Montserrat', sans-serif;
-  --font-label-sm: 'JetBrains Mono', monospace;
-  --font-body-md: 'Manrope', sans-serif;
 
   --spacing-gutter: 24px;
   --spacing-section-gap: 120px;
   --spacing-margin-mobile: 24px;
   --spacing-margin-desktop: 64px;
-
-  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
 }
 
-body {
-  background-color: var(--color-background);
-  color: var(--color-on-background);
-  overflow-x: hidden;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Grid overlay background utility */
+.grid-overlay {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Scanline and CRT-like visual overlays */
+.scanline-overlay::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 99;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.15;
+}
+
+/* Selection Highlight */
+::selection {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
 }
 
 .glass-panel {
@@ -57,28 +99,28 @@ body {
 
 @layer utilities {
   .text-display-lg {
-    font-family: var(--font-display-lg);
+    font-family: var(--font-display, "Space Grotesk", sans-serif);
     font-size: clamp(48px, 6vw, 80px);
     line-height: 1.1;
     letter-spacing: -0.02em;
     font-weight: 800;
   }
   .text-headline-lg {
-    font-family: var(--font-headline-lg);
+    font-family: var(--font-sans, "Inter", sans-serif);
     font-size: 32px;
     line-height: 1.2;
     letter-spacing: 0.05em;
     font-weight: 700;
   }
   .text-label-sm {
-    font-family: var(--font-label-sm);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
     font-size: 12px;
     line-height: 1.4;
     letter-spacing: 0.1em;
     font-weight: 500;
   }
   .text-body-md {
-    font-family: var(--font-body-md);
+    font-family: var(--font-sans, "Inter", sans-serif);
     font-size: 16px;
     line-height: 1.6;
     letter-spacing: 0.01em;
