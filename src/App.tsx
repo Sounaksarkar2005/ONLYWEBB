@@ -15,19 +15,23 @@ import CTA from './components/CTA';
 import { CanvasConfig, AccentColor } from './types';
 
 export default function App() {
-  const [accentColor] = useState<AccentColor>('pure_mono');
+  const [accentColor, setAccentColor] = useState<AccentColor>('pure_mono');
   const [focusedService, setFocusedService] = useState<string>('');
   
   // Real-time digital clock state
   const [timeStr, setTimeStr] = useState<string>('');
 
-  const [activePage, setActivePage] = useState<'home' | 'services'>('home');
+  const [activePage, setActivePage] = useState<'home' | 'about' | 'services' | 'portfolio'>('home');
 
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
       if (hash === '#services-section') {
         setActivePage('services');
+      } else if (hash === '#about') {
+        setActivePage('about');
+      } else if (hash === '#portfolio') {
+        setActivePage('portfolio');
       } else {
         setActivePage('home');
       }
@@ -39,7 +43,7 @@ export default function App() {
   }, []);
 
   // 3D Canvas Default Config
-  const [canvasConfig] = useState<CanvasConfig>({
+  const [canvasConfig, setCanvasConfig] = useState<CanvasConfig>({
     style: 'wireframe_3d',
     object3DType: 'topo_blob',
     object3DScale: 1.4,
@@ -190,8 +194,14 @@ export default function App() {
                   </>
                 )}
               </a>
-              <a href="#about" className="hover:text-white transition-colors">
+              <a href="#about" className={`relative flex flex-col items-center transition-colors ${activePage === 'about' ? 'text-white' : 'hover:text-white'}`}>
                 ABOUT
+                {activePage === 'about' && (
+                  <>
+                    <motion.span layoutId="nav-underline" className="absolute -bottom-1 w-full border-b-[1.5px] border-white"></motion.span>
+                    <motion.span layoutId="nav-dot" className="absolute -bottom-2.5 w-[3px] h-[3px] bg-white rounded-full"></motion.span>
+                  </>
+                )}
               </a>
               <a href="#services-section" className={`relative flex flex-col items-center transition-colors ${activePage === 'services' ? 'text-white' : 'hover:text-white'}`}>
                 SERVICES
@@ -202,8 +212,14 @@ export default function App() {
                   </>
                 )}
               </a>
-              <a href="#portfolio" className="hover:text-white transition-colors">
+              <a href="#portfolio" className={`relative flex flex-col items-center transition-colors ${activePage === 'portfolio' ? 'text-white' : 'hover:text-white'}`}>
                 PORTFOLIO
+                {activePage === 'portfolio' && (
+                  <>
+                    <motion.span layoutId="nav-underline" className="absolute -bottom-1 w-full border-b-[1.5px] border-white"></motion.span>
+                    <motion.span layoutId="nav-dot" className="absolute -bottom-2.5 w-[3px] h-[3px] bg-white rounded-full"></motion.span>
+                  </>
+                )}
               </a>
             </nav>
 
@@ -223,7 +239,7 @@ export default function App() {
           </header>
         </div>
 
-        {activePage === 'home' ? (
+        {activePage !== 'services' ? (
           <>
         {/* Hero Section */}
         <section id="hero-section" className="relative flex-1 flex flex-col justify-center items-center py-20 lg:py-32 max-w-7xl mx-auto px-4 md:px-8 text-center">
