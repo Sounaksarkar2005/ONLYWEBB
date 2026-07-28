@@ -42,7 +42,7 @@ const ADD_ONS: AddOn[] = [
 export default function ServiceConfigurator({ accentColor, initialServiceFocus }: ServiceConfiguratorProps) {
   const [scope, setScope] = useState<ProjectScope>('immersive_spa');
   const [fidelity, setFidelity] = useState<VisualFidelity>('interactive_3d');
-  const [selectedAddOns, setSelectedAddOns] = useState<string[]>(['vector_math']);
+  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   const [specLocked, setSpecLocked] = useState(false);
 
   // If initialServiceFocus matches something, we can adapt the settings
@@ -348,66 +348,7 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
             </div>
           </div>
 
-          {/* Step 3: Addon integrations */}
-          <div className="space-y-4 pt-4 border-t border-zinc-900">
-            <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
-              <span className="flex items-center justify-center w-5 h-5 rounded-full border border-neutral-700 bg-neutral-900 text-white font-bold text-[9px]">
-                03
-              </span>
-              <span>Additional Systems Integration</span>
-            </div>
 
-            <div className="space-y-3">
-              {ADD_ONS.map((addon) => {
-                const isSelected = selectedAddOns.includes(addon.id);
-                return (
-                  <button
-                    id={`btn-addon-toggle-${addon.id}`}
-                    key={addon.id}
-                    onClick={() => {
-                      toggleAddOn(addon.id);
-                      setSpecLocked(false);
-                    }}
-                    className={`flex items-center justify-between text-left p-4 rounded-xl border transition-all duration-300 w-full group cursor-pointer ${
-                      isSelected
-                        ? accentColor === 'cyber_amber' ? 'border-amber-500/30 bg-amber-500/5' :
-                          accentColor === 'toxic_green' ? 'border-emerald-500/30 bg-emerald-500/5' :
-                          accentColor === 'neon_cobalt' ? 'border-blue-500/30 bg-blue-500/5' :
-                          'border-zinc-300 bg-white/5'
-                        : 'border-zinc-900 bg-zinc-950/20 text-neutral-400 hover:border-zinc-700'
-                    }`}
-                  >
-                    <div className="flex items-start gap-3.5 pr-4">
-                      <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                        isSelected
-                          ? getAccentBg() + ' border-transparent text-black'
-                          : 'border-neutral-700 bg-neutral-950'
-                      }`}>
-                        {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
-                      </div>
-                      <div className="space-y-0.5">
-                        <h4 className="font-bold text-sm text-white group-hover:text-white transition-colors">
-                          {addon.name}
-                        </h4>
-                        <p className="text-xs text-neutral-400 max-w-xl leading-normal">
-                          {addon.description}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="text-right shrink-0">
-                      <span className="block font-mono text-xs text-white font-semibold">
-                        +${addon.price.toLocaleString()}
-                      </span>
-                      <span className="block font-mono text-[9px] text-neutral-500 uppercase tracking-widest mt-0.5">
-                        +{addon.complexityContribution}% Complexity
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
         </div>
 
         {/* Right Side: Estimated Outputs & Statistics */}
@@ -540,10 +481,7 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
                       <span className="text-zinc-500">VISUAL STYLE</span>
                       <span className="text-white font-bold uppercase">{fidelity.replace('_', ' ')}</span>
                     </div>
-                    <div className="flex justify-between border-b border-zinc-900 pb-2">
-                      <span className="text-zinc-500">ADDITIONAL PLUGINS</span>
-                      <span className="text-white font-bold">{selectedAddOns.length} MODULES</span>
-                    </div>
+
                     <div className="flex justify-between text-white font-bold text-xs pt-1">
                       <span className={getAccentText()}>ESTIMATED BUDGET</span>
                       <span className="text-sm">${stats.price.toLocaleString()} USD</span>

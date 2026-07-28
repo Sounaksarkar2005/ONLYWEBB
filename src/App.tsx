@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Cpu, Globe, Activity, ChevronDown, Settings, Mail, Terminal, 
-  ArrowRight, Shield, Zap, CheckCircle, Info, Heart 
+  ArrowRight, Shield, Zap, CheckCircle, Heart 
 } from 'lucide-react';
 
 import BackgroundCanvas from './components/BackgroundCanvas';
@@ -304,38 +304,6 @@ export default function App() {
             </a>
           </motion.div>
 
-          {/* Design Accent Sandbox Selector inside Hero to quickly demonstrate integration */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-16 bg-neutral-950/40 border border-zinc-900 p-4 rounded-xl max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-md"
-          >
-            <div className="flex items-center gap-2">
-              <Info className="w-4 h-4 text-neutral-500" />
-              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider text-left">
-                SANDBOX: SWITCH DESIGN ACCENT
-              </span>
-            </div>
-            <div className="flex gap-1.5">
-              {(['pure_mono', 'cyber_amber', 'toxic_green', 'neon_cobalt'] as AccentColor[]).map((col) => (
-                <button
-                  id={`hero-swatch-${col}`}
-                  key={col}
-                  onClick={() => setAccentColor(col)}
-                  className={`w-5 h-5 rounded-full border transition-all duration-300 hover:scale-110 active:scale-90 cursor-pointer ${
-                    accentColor === col ? 'ring-2 ring-white scale-105 border-transparent' : 'border-white/10'
-                  } ${
-                    col === 'pure_mono' ? 'bg-white' :
-                    col === 'cyber_amber' ? 'bg-amber-500' :
-                    col === 'toxic_green' ? 'bg-emerald-500' :
-                    'bg-blue-500'
-                  }`}
-                  title={col.replace('_', ' ')}
-                />
-              ))}
-            </div>
-          </motion.div>
 
           {/* Arrow Indicator */}
           <div className="mt-12 animate-bounce">
