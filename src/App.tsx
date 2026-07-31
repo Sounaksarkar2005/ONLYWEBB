@@ -115,6 +115,20 @@ export default function App() {
   const handleSubmitContact = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formState.name || !formState.email) return;
+
+    const recipient = 'onlywebb4@gmail.com';
+    const subject = `ONLYWEBB Project Brief - ${formState.name}`;
+    const body = `NAME: ${formState.name}\nEMAIL: ${formState.email}\n\nPROJECT BRIEF & REQUIREMENTS:\n${formState.message || 'No additional message provided.'}\n\n------------------------------\nSent via ONLYWEBB Digital Platform`;
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipient)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open Gmail web compose in a new tab or fall back to mailto:
+    const gmailWin = window.open(gmailUrl, '_blank');
+    if (!gmailWin || gmailWin.closed || typeof gmailWin.closed === 'undefined') {
+      window.location.href = mailtoUrl;
+    }
+
     setFormSubmitted(true);
     setTimeout(() => {
       setFormSubmitted(false);
@@ -265,9 +279,9 @@ export default function App() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter leading-[0.9] text-white"
             >
-              CRAFTING <br />
-              <span className="italic font-serif text-neutral-300 font-normal">Digital</span> <br />
-              MONOLITHS
+              ENGINEERING <br />
+              <span className="italic font-serif text-neutral-300 font-normal">Websites</span> <br />
+              THAT CONVERT
             </motion.h1>
 
             <motion.p
@@ -276,7 +290,7 @@ export default function App() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="font-light text-neutral-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed pt-2"
             >
-              Building bespoke digital monoliths with extreme performance ratios, fluid 3D mathematics, and pristine monochrome artistry.
+              We design and build high-performance websites and web apps — custom code, immersive 3D interactions, and pixel-perfect design — for businesses across India and worldwide.
             </motion.p>
           </div>
 
@@ -311,27 +325,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* Decorative Separator / Stats Strip */}
-        <section className="border-y border-white/5 bg-[#0a0a0a]/40 backdrop-blur-md">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 grid grid-cols-2 lg:grid-cols-4 gap-8 font-mono text-center lg:text-left">
-            <div className="space-y-1">
-              <span className="block text-[9px] text-neutral-500 uppercase tracking-widest">Lighthouse Core</span>
-              <span className="block text-xl font-bold text-white">99 / 100 SPEED</span>
-            </div>
-            <div className="space-y-1 border-l border-white/5 pl-0 lg:pl-8">
-              <span className="block text-[9px] text-neutral-500 uppercase tracking-widest">Engineering Mode</span>
-              <span className="block text-xl font-bold text-white">TYPED TYPESCRIPT</span>
-            </div>
-            <div className="space-y-1 border-l border-white/5 pl-0 lg:pl-8">
-              <span className="block text-[9px] text-neutral-500 uppercase tracking-widest">Layout Method</span>
-              <span className="block text-xl font-bold text-white">ZERO BLURRED LAYOUTS</span>
-            </div>
-            <div className="space-y-1 border-l border-white/5 pl-0 lg:pl-8">
-              <span className="block text-[9px] text-neutral-500 uppercase tracking-widest">Visual Theme</span>
-              <span className="block text-xl font-bold text-white">HIGH-CONTRAST MONO</span>
-            </div>
-          </div>
-        </section>
+
 
         {/* Services Section */}
         <section id="services-anchor" className="py-20 lg:py-32 bg-gradient-to-b from-transparent to-neutral-950/40 relative">
@@ -361,10 +355,10 @@ export default function App() {
               </span>
             </div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white tracking-tight">
-              COMMISSION A DIGITAL MONOLITH
+              LET'S BUILD SOMETHING
             </h2>
             <p className="text-neutral-400 text-sm max-w-xl mx-auto leading-relaxed">
-              Have an architectural draft or immersive interface project in mind? Complete the transmission below, and our engineering desk will respond in under 12 hours.
+              Have a website or app idea in mind? Fill out the form below and our team will get back to you within 12 hours — wherever you're based.
             </p>
           </div>
 
@@ -386,13 +380,13 @@ export default function App() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label htmlFor="form-input-name" className="block font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-                        Your Identity (Name)
+                        YOUR NAME
                       </label>
                       <input
                         id="form-input-name"
                         type="text"
                         required
-                        placeholder="e.g. Satoshi Nakamoto"
+                        placeholder="Your Name"
                         value={formState.name}
                         onChange={(e) => setFormState(prev => ({ ...prev, name: e.target.value }))}
                         className="w-full bg-[#0c0c0c] border border-zinc-900 focus:border-zinc-700 rounded-xl px-4 py-3.5 text-sm text-white placeholder-neutral-600 outline-none transition-colors"
@@ -401,13 +395,13 @@ export default function App() {
 
                     <div className="space-y-2">
                       <label htmlFor="form-input-email" className="block font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-                        Communication Node (Email)
+                        EMAIL ADDRESS
                       </label>
                       <input
                         id="form-input-email"
                         type="email"
                         required
-                        placeholder="e.g. satoshi@bitcoin.org"
+                        placeholder="Your Email ID"
                         value={formState.email}
                         onChange={(e) => setFormState(prev => ({ ...prev, email: e.target.value }))}
                         className="w-full bg-[#0c0c0c] border border-zinc-900 focus:border-zinc-700 rounded-xl px-4 py-3.5 text-sm text-white placeholder-neutral-600 outline-none transition-colors"
@@ -417,7 +411,7 @@ export default function App() {
 
                   <div className="space-y-2">
                     <label htmlFor="form-textarea-message" className="block font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-                      Project Specification Draft / Brief
+                      PROJECT DETAILS
                     </label>
                     <textarea
                       id="form-textarea-message"
@@ -435,7 +429,7 @@ export default function App() {
                     type="submit"
                     className={`w-full py-4 px-6 rounded-xl font-bold text-xs uppercase tracking-widest text-black shadow-lg transition-all duration-300 hover:scale-[1.01] active:scale-95 cursor-pointer flex items-center justify-center gap-2 ${getAccentBg()}`}
                   >
-                    Transmit Specification Brief
+                    SUBMIT PROJECT BRIEF
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </motion.form>

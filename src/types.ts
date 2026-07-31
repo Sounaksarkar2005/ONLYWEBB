@@ -14,15 +14,15 @@ export interface CanvasConfig {
   glowEffect: boolean;
 }
 
-export type ProjectScope = 'monolith' | 'immersive_spa' | 'fullstack_portal';
-export type VisualFidelity = 'minimalist' | 'interactive_3d' | 'brutalist_cyber';
+export type ProjectScope = 'launch' | 'growth' | 'smart';
+export type VisualFidelity = 'basic' | 'standard' | 'complete';
 
 export interface AddOn {
   id: string;
   name: string;
   description: string;
   price: number;
-  complexityContribution: number;
+  complexityContribution?: number;
 }
 
 export interface EstimatorState {

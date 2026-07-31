@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Globe, Activity, Cpu, ArrowUpRight, ShieldCheck, Zap, Layers } from 'lucide-react';
+import { Globe, Activity, Cpu, ArrowUpRight } from 'lucide-react';
 import { AccentColor } from '../types';
 
 interface Service {
@@ -102,7 +102,7 @@ export default function ServiceCards({ accentColor, onCardHover, onSelectService
             ENGINEERING SPECTACLES
           </h2>
           <p className="text-neutral-400 text-sm leading-relaxed">
-            We operate at the narrow intersection of visual art and technical precision. We reject templates, off-the-shelf component frameworks, and bloated libraries, crafting all components custom.
+            We build every website from scratch — no drag-and-drop builders, no bloated templates. Just clean code, custom design, and fast-loading pages, tailored to your brand and your customers, wherever they are.
           </p>
         </div>
         
@@ -213,50 +213,7 @@ export default function ServiceCards({ accentColor, onCardHover, onSelectService
         })}
       </div>
 
-      {/* Trust Badges */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-zinc-900">
-        <div className="flex items-center gap-3.5 bg-zinc-950/30 p-5 rounded-xl border border-zinc-900">
-          <div className="p-2.5 rounded-lg bg-zinc-950 border border-zinc-900 text-neutral-400">
-            <Zap className="w-4 h-4" />
-          </div>
-          <div>
-            <h4 className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-              Performance Standard
-            </h4>
-            <p className="text-sm font-semibold text-white">
-              Lighthouse score guaranteed 95+
-            </p>
-          </div>
-        </div>
 
-        <div className="flex items-center gap-3.5 bg-zinc-950/30 p-5 rounded-xl border border-zinc-900">
-          <div className="p-2.5 rounded-lg bg-zinc-950 border border-zinc-900 text-neutral-400">
-            <ShieldCheck className="w-4 h-4" />
-          </div>
-          <div>
-            <h4 className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-              Design Authenticity
-            </h4>
-            <p className="text-sm font-semibold text-white">
-              Zero template libraries used
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-3.5 bg-zinc-950/30 p-5 rounded-xl border border-zinc-900">
-          <div className="p-2.5 rounded-lg bg-zinc-950 border border-zinc-900 text-neutral-400">
-            <Layers className="w-4 h-4" />
-          </div>
-          <div>
-            <h4 className="font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-              Engineering Delivery
-            </h4>
-            <p className="text-sm font-semibold text-white">
-              Complete, audited typescript core
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

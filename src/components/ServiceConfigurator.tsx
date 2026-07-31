@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Check, Info, Server, Sparkles, Database, Code, Sliders, Timer, Compass, CreditCard, CheckCircle } from 'lucide-react';
+import { Rocket, TrendingUp, Bot, Share2, Target, MessageCircle, Crown, Info, Sliders, Timer, CreditCard, CheckCircle, Plus, Check, X } from 'lucide-react';
 import { AccentColor, ProjectScope, VisualFidelity, AddOn } from '../types';
 
 interface ServiceConfiguratorProps {
@@ -14,55 +14,50 @@ const ADD_ONS: AddOn[] = [
     name: 'Secure API Gateways & Proxy Layer',
     description: 'Enables safe server-side API proxy connections, hiding API keys and preventing front-end injection.',
     price: 1800,
-    complexityContribution: 15,
   },
   {
     id: 'vector_math',
     name: 'Custom Vector Math Simulation Physics',
     description: 'High-performance math modules mapping custom coordinate physics directly inside responsive HTML5 canvases.',
     price: 3200,
-    complexityContribution: 25,
   },
   {
     id: 'edge_cache',
     name: 'Multi-Region Edge Routing Optimization',
     description: 'Redistributes site asset files using robust CDN rules for zero-CLS immediate visual responses.',
     price: 1400,
-    complexityContribution: 10,
   },
   {
     id: 'auth_db',
     name: 'Bespoke Auth & Persistent Room State',
     description: 'Connects standard secure authentication and document databases (like Firestore) for multi-user session storage.',
     price: 2500,
-    complexityContribution: 20,
   },
 ];
 
 export default function ServiceConfigurator({ accentColor, initialServiceFocus }: ServiceConfiguratorProps) {
-  const [scope, setScope] = useState<ProjectScope>('immersive_spa');
-  const [fidelity, setFidelity] = useState<VisualFidelity>('interactive_3d');
+  // Base package selection (customer chooses exactly 1 from launch, growth, smart)
+  const [scope, setScope] = useState<ProjectScope>('growth');
+  
+  // Reach module (customer can add or remove)
+  const [reachEnabled, setReachEnabled] = useState<boolean>(true);
+  const [fidelity, setFidelity] = useState<VisualFidelity>('complete');
+
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
   const [specLocked, setSpecLocked] = useState(false);
 
-  // If initialServiceFocus matches something, we can adapt the settings
   useEffect(() => {
     if (initialServiceFocus) {
-      if (initialServiceFocus.includes('Frontend')) {
-        setScope('immersive_spa');
-        setFidelity('minimalist');
-      } else if (initialServiceFocus.includes('3D')) {
-        setScope('immersive_spa');
-        setFidelity('interactive_3d');
-        if (!selectedAddOns.includes('vector_math')) {
-          setSelectedAddOns(prev => [...prev, 'vector_math']);
-        }
-      } else if (initialServiceFocus.includes('Performance') || initialServiceFocus.includes('Architecture')) {
-        setScope('fullstack_portal');
-        setFidelity('brutalist_cyber');
-        if (!selectedAddOns.includes('edge_cache')) {
-          setSelectedAddOns(prev => [...prev, 'edge_cache']);
-        }
+      const lower = initialServiceFocus.toLowerCase();
+      if (lower.includes('launch') || lower.includes('frontend')) {
+        setScope('launch');
+      } else if (lower.includes('growth') || lower.includes('multi')) {
+        setScope('growth');
+      } else if (lower.includes('smart') || lower.includes('ai')) {
+        setScope('smart');
+      } else if (lower.includes('reach') || lower.includes('social')) {
+        setReachEnabled(true);
+        setFidelity('complete');
       }
     }
   }, [initialServiceFocus]);
@@ -76,73 +71,62 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
   // Compute stats
   const calculateStats = () => {
     let basePrice = 0;
-    let baseComplexity = 30;
-    let baseWeeks = 4;
+    let baseWeeks = 1;
 
+    // Base package price & duration
     switch (scope) {
-      case 'monolith':
-        basePrice = 4500;
-        baseComplexity = 20;
+      case 'launch':
+        basePrice = 5499;
+        baseWeeks = 1;
+        break;
+      case 'growth':
+        basePrice = 10999;
+        baseWeeks = 2;
+        break;
+      case 'smart':
+        basePrice = 9999;
         baseWeeks = 3;
         break;
-      case 'immersive_spa':
-        basePrice = 8200;
-        baseComplexity = 45;
-        baseWeeks = 6;
-        break;
-      case 'fullstack_portal':
-        basePrice = 12500;
-        baseComplexity = 65;
-        baseWeeks = 9;
-        break;
     }
 
-    switch (fidelity) {
-      case 'minimalist':
-        basePrice += 1000;
-        baseComplexity += 5;
-        baseWeeks += 1;
-        break;
-      case 'interactive_3d':
-        basePrice += 4000;
-        baseComplexity += 25;
-        baseWeeks += 3;
-        break;
-      case 'brutalist_cyber':
-        basePrice += 2500;
-        baseComplexity += 15;
-        baseWeeks += 2;
-        break;
+    // Add Reach plan price if Reach module is enabled
+    if (reachEnabled) {
+      switch (fidelity) {
+        case 'basic':
+          basePrice += 10000;
+          break;
+        case 'standard':
+          basePrice += 9000;
+          break;
+        case 'complete':
+          basePrice += 18000;
+          break;
+      }
     }
 
-    // Addons contribution
     const addOnsCost = ADD_ONS.filter(a => selectedAddOns.includes(a.id)).reduce((sum, a) => sum + a.price, 0);
-    const addOnsComplexity = ADD_ONS.filter(a => selectedAddOns.includes(a.id)).reduce((sum, a) => sum + a.complexityContribution, 0);
 
     const totalCost = basePrice + addOnsCost;
-    const totalComplexity = Math.min(100, baseComplexity + addOnsComplexity);
-    const totalWeeks = baseWeeks + Math.round(addOnsComplexity / 10);
 
-    // Tech stack mapping based on selections
     const techStack = ['React 19', 'TypeScript', 'Tailwind CSS'];
-    if (scope === 'fullstack_portal' || selectedAddOns.includes('api_gateway') || selectedAddOns.includes('auth_db')) {
-      techStack.push('Express Server');
+    if (scope === 'launch' || scope === 'growth') {
+      techStack.push('WhatsApp API');
     }
-    if (fidelity === 'interactive_3d' || selectedAddOns.includes('vector_math')) {
-      techStack.push('HTML5 Canvas');
-      techStack.push('Vector Math Matrix');
+    if (scope === 'growth') {
+      techStack.push('Payment Gateway');
+      techStack.push('SEO Engine');
     }
-    if (selectedAddOns.includes('edge_cache')) {
-      techStack.push('Edge CDN CD');
+    if (scope === 'smart') {
+      techStack.push('AI Chatbot Model');
     }
-    if (selectedAddOns.includes('auth_db')) {
-      techStack.push('Firebase Admin');
+    if (reachEnabled) {
+      techStack.push('Social Growth Suite');
+      techStack.push('Analytics Engine');
     }
 
     return {
       price: totalCost,
-      complexity: totalComplexity,
-      weeks: totalWeeks,
+      weeks: baseWeeks,
       techStack,
     };
   };
@@ -189,6 +173,21 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
     }
   };
 
+  const handleSelectReachPlan = (planId: VisualFidelity) => {
+    setSpecLocked(false);
+    if (!reachEnabled) {
+      // Turn reach on and select clicked plan
+      setReachEnabled(true);
+      setFidelity(planId);
+    } else if (fidelity === planId) {
+      // Toggle reach off if clicking already selected plan
+      setReachEnabled(false);
+    } else {
+      // Switch to new reach plan
+      setFidelity(planId);
+    }
+  };
+
   return (
     <div id="project-configurator-container" className="max-w-7xl mx-auto px-4 md:px-8 space-y-12">
       {/* Configurator Header */}
@@ -203,7 +202,7 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
           PROJECT ARCHITECTURE CONFIGURATOR
         </h2>
         <p className="text-neutral-400 text-sm leading-relaxed max-w-3xl">
-          Tweak the operational parameters, select visual fidelities, and stack additional modules. Our specification engine automatically estimates structural complexity, ideal technical integrations, and development scopes in real-time.
+          Tweak the operational parameters, select visual fidelities, and stack additional modules. Our specification engine automatically estimates ideal technical integrations and development scopes in real-time.
         </p>
       </div>
 
@@ -213,40 +212,46 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
         {/* Left Side: Parameters Inputs */}
         <div className="lg:col-span-7 space-y-8">
           
-          {/* Step 1: Project Scope */}
+          {/* Step 1: Choose Your Package (Select 1 only) */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
-              <span className="flex items-center justify-center w-5 h-5 rounded-full border border-neutral-700 bg-neutral-900 text-white font-bold text-[9px]">
-                01
-              </span>
-              <span>Project Scope & Base Architecture</span>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="flex items-center justify-center w-7 h-7 rounded-full border border-neutral-600 bg-neutral-900 text-white font-bold font-mono text-xs shadow-sm">
+                  01
+                </span>
+                <span className="font-mono text-sm sm:text-base font-bold text-white uppercase tracking-wider">
+                  CHOOSE YOUR PACKAGE
+                </span>
+              </div>
+              <span className="text-xs text-neutral-400 font-sans normal-case">(Select 1 package)</span>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 {
-                  id: 'monolith' as ProjectScope,
-                  name: 'Standard Monolith',
-                  desc: 'Perfect for landing portfolios or localized services.',
-                  priceLabel: 'Base $4,500',
-                  icon: Code,
+                  id: 'launch' as ProjectScope,
+                  name: 'Launch',
+                  desc: 'A clean single-page website with WhatsApp integration built in — perfect for individuals, freelancers, and small local businesses who need a fast, professional presence.',
+                  priceLabel: 'BASE ₹5499',
+                  icon: Rocket,
                 },
                 {
-                  id: 'immersive_spa' as ProjectScope,
-                  name: 'Immersive App',
-                  desc: 'Bespoke reactive canvas elements and micro-motion.',
-                  priceLabel: 'Base $8,200',
-                  icon: Sparkles,
+                  id: 'growth' as ProjectScope,
+                  name: 'Growth',
+                  desc: 'A full multi-page website with WhatsApp integration, secure payment gateway, and on-page SEO — built for businesses ready to scale and get discovered online.',
+                  priceLabel: 'BASE ₹10999 (+ ₹1000/mo maintenance)',
+                  icon: TrendingUp,
                 },
                 {
-                  id: 'fullstack_portal' as ProjectScope,
-                  name: 'Full-Stack Portal',
-                  desc: 'High-concurrency servers, document databases and proxies.',
-                  priceLabel: 'Base $12,500',
-                  icon: Server,
+                  id: 'smart' as ProjectScope,
+                  name: 'Smart',
+                  desc: 'AI-powered chatbots for both customer support and internal business management — automate conversations, capture leads, and run operations smarter.',
+                  priceLabel: 'BASE ₹9999 (+ ₹1000/mo maintenance)',
+                  icon: Bot,
                 },
               ].map((item) => {
                 const Icon = item.icon;
+                const isSelected = scope === item.id;
                 return (
                   <button
                     id={`btn-scope-${item.id}`}
@@ -256,7 +261,7 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
                       setSpecLocked(false);
                     }}
                     className={`flex flex-col justify-between text-left p-5 rounded-xl border bg-zinc-950/20 hover:bg-zinc-900/10 transition-all duration-300 h-full relative group cursor-pointer ${
-                      scope === item.id
+                      isSelected
                         ? accentColor === 'cyber_amber' ? 'border-amber-500 bg-amber-500/5' :
                           accentColor === 'toxic_green' ? 'border-emerald-500 bg-emerald-500/5' :
                           accentColor === 'neon_cobalt' ? 'border-blue-500 bg-blue-500/5' :
@@ -266,8 +271,8 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
                   >
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <Icon className={`w-4 h-4 ${scope === item.id ? getAccentText() : 'text-neutral-500'}`} />
-                        {scope === item.id && (
+                        <Icon className={`w-4 h-4 ${isSelected ? getAccentText() : 'text-neutral-500'}`} />
+                        {isSelected && (
                           <div className={`w-2.5 h-2.5 rounded-full ${getAccentBg()}`} />
                         )}
                       </div>
@@ -285,69 +290,116 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
             </div>
           </div>
 
-          {/* Step 2: Visual Fidelity */}
+          {/* Step 2: Reach - Optional Add-on (Add or Remove) */}
           <div className="space-y-4 pt-4 border-t border-zinc-900">
-            <div className="flex items-center gap-2 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
-              <span className="flex items-center justify-center w-5 h-5 rounded-full border border-neutral-700 bg-neutral-900 text-white font-bold text-[9px]">
-                02
-              </span>
-              <span>Visual Fidelity & Art Direction</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="flex items-center justify-center w-7 h-7 rounded-full border border-neutral-600 bg-neutral-900 text-white font-bold font-mono text-xs shadow-sm">
+                  02
+                </span>
+                <span className="font-mono text-sm sm:text-base font-bold text-white uppercase tracking-wider">
+                  REACH — CHOOSE YOUR PLAN (OPTIONAL)
+                </span>
+              </div>
+
+              {/* Toggle to Add or Remove Reach Module */}
+              <button
+                id="btn-toggle-reach"
+                onClick={() => {
+                  setReachEnabled(!reachEnabled);
+                  setSpecLocked(false);
+                }}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer self-start sm:self-auto ${
+                  reachEnabled
+                    ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300 font-semibold'
+                    : 'border-zinc-800 bg-zinc-900/80 text-neutral-400 hover:border-zinc-700 hover:text-white'
+                }`}
+              >
+                {reachEnabled ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>REACH ADDED</span>
+                    <span className="text-[10px] text-neutral-400 hover:text-red-400 pl-1 border-l border-zinc-700 ml-1">(Remove)</span>
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-3.5 h-3.5 text-neutral-400" />
+                    <span>+ ADD REACH</span>
+                  </>
+                )}
+              </button>
             </div>
+
+            <p className="text-xs text-neutral-400 leading-relaxed">
+              Your complete social media growth engine — covering Facebook, Instagram, Twitter, LinkedIn, and WhatsApp.
+              {!reachEnabled && <span className="text-amber-400 ml-1 font-mono text-[11px]">(Click any plan below or press "+ ADD REACH" to include)</span>}
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 {
-                  id: 'minimalist' as VisualFidelity,
-                  name: 'Neo-Minimalist',
-                  desc: 'Clinical spacing, fine wireframes, off-white text focus.',
-                  priceLabel: '+$1,000',
+                  id: 'basic' as VisualFidelity,
+                  name: 'Basic',
+                  desc: 'Paid ad campaign setup and management across social platforms to drive targeted traffic and leads.',
+                  priceLabel: '+₹10000 / monthly ad',
+                  icon: Target,
                 },
                 {
-                  id: 'interactive_3d' as VisualFidelity,
-                  name: 'Vector Canvas 3D',
-                  desc: 'Dynamic rotating mathematical canvas matrix background.',
-                  priceLabel: '+$4,000',
+                  id: 'standard' as VisualFidelity,
+                  name: 'Standard',
+                  desc: 'Daily posting and active community engagement across Facebook, Instagram.',
+                  priceLabel: '+₹9000 / monthly ad',
+                  icon: MessageCircle,
                 },
                 {
-                  id: 'brutalist_cyber' as VisualFidelity,
-                  name: 'Brutalist Cyber',
-                  desc: 'Solid structural borders, monospace logs, high-contrast overlay.',
-                  priceLabel: '+$2,500',
+                  id: 'complete' as VisualFidelity,
+                  name: 'Complete',
+                  desc: 'Full-service social media management — content calendar, creative design, ad campaigns, engagement, and monthly performance reporting, all in one.',
+                  priceLabel: '+₹18000 / monthly ad',
+                  icon: Crown,
                 },
-              ].map((item) => (
-                <button
-                  id={`btn-fidelity-${item.id}`}
-                  key={item.id}
-                  onClick={() => {
-                    setFidelity(item.id);
-                    setSpecLocked(false);
-                  }}
-                  className={`flex flex-col justify-between text-left p-5 rounded-xl border bg-zinc-950/20 hover:bg-zinc-900/10 transition-all duration-300 h-full relative cursor-pointer ${
-                    fidelity === item.id
-                      ? accentColor === 'cyber_amber' ? 'border-amber-500 bg-amber-500/5' :
-                        accentColor === 'toxic_green' ? 'border-emerald-500 bg-emerald-500/5' :
-                        accentColor === 'neon_cobalt' ? 'border-blue-500 bg-blue-500/5' :
-                        'border-zinc-300 bg-white/5'
-                      : 'border-zinc-900 text-neutral-400'
-                  }`}
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-bold text-sm text-white">{item.name}</h4>
-                      {fidelity === item.id && (
-                        <div className={`w-2.5 h-2.5 rounded-full ${getAccentBg()}`} />
-                      )}
+              ].map((item) => {
+                const Icon = item.icon;
+                const isSelected = reachEnabled && fidelity === item.id;
+                return (
+                  <button
+                    id={`btn-fidelity-${item.id}`}
+                    key={item.id}
+                    onClick={() => handleSelectReachPlan(item.id)}
+                    className={`flex flex-col justify-between text-left p-5 rounded-xl border transition-all duration-300 h-full relative cursor-pointer ${
+                      isSelected
+                        ? accentColor === 'cyber_amber' ? 'border-amber-500 bg-amber-500/5' :
+                          accentColor === 'toxic_green' ? 'border-emerald-500 bg-emerald-500/5' :
+                          accentColor === 'neon_cobalt' ? 'border-blue-500 bg-blue-500/5' :
+                          'border-zinc-300 bg-white/5'
+                        : reachEnabled
+                          ? 'border-zinc-900 bg-zinc-950/20 text-neutral-400 hover:border-zinc-800'
+                          : 'border-zinc-900/60 bg-zinc-950/10 text-neutral-500 opacity-70 hover:opacity-100 hover:border-zinc-800'
+                    }`}
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <Icon className={`w-4 h-4 ${isSelected ? getAccentText() : 'text-neutral-500'}`} />
+                        {isSelected && (
+                          <div className={`w-2.5 h-2.5 rounded-full ${getAccentBg()}`} />
+                        )}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-sm text-white flex items-center justify-between">
+                          <span>{item.name}</span>
+                          {!reachEnabled && <span className="text-[9px] font-mono text-neutral-500 font-normal uppercase">+ Add</span>}
+                        </h4>
+                        <p className="text-xs text-neutral-400 mt-1 leading-relaxed">{item.desc}</p>
+                      </div>
                     </div>
-                    <p className="text-xs text-neutral-400 leading-relaxed">{item.desc}</p>
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-zinc-900 font-mono text-[10px] text-neutral-400 uppercase tracking-wider">
-                    {item.priceLabel}
-                  </div>
-                </button>
-              ))}
+                    <div className="mt-4 pt-3 border-t border-zinc-900 font-mono text-[10px] text-neutral-400 uppercase tracking-wider">
+                      {item.priceLabel}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
-
 
         </div>
 
@@ -381,48 +433,36 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
                     </span>
                     <div className="flex items-baseline justify-center md:justify-start gap-2">
                       <span className="text-4xl md:text-5xl font-extrabold tracking-tight text-white">
-                        ${stats.price.toLocaleString()}
+                        ₹{stats.price.toLocaleString('en-IN')}
                       </span>
                       <span className="font-mono text-xs text-neutral-500 font-semibold uppercase">
-                        USD BASE
+                        INR ESTIMATE
                       </span>
                     </div>
                     <p className="text-[11px] text-neutral-400 leading-normal pt-1.5 border-t border-zinc-900">
-                      Includes absolute visual ownership, bespoke asset setups, and rigorous edge testing.
+                      Includes complete integration, responsive architecture, and dedicated setup.
                     </p>
                   </div>
 
-                  {/* Duration & Complexity Metrics */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-neutral-900/30 rounded-xl p-4 border border-zinc-900 space-y-1">
-                      <div className="flex items-center gap-1.5 font-mono text-[9px] text-neutral-500 uppercase">
-                        <Timer className="w-3.5 h-3.5" />
-                        <span>Duration</span>
-                      </div>
-                      <span className="block text-2xl font-bold text-white tracking-tight">
-                        {stats.weeks} Weeks
-                      </span>
-                      <span className="block text-[10px] text-neutral-400">
-                        Agile sprints cycle
-                      </span>
+                  {/* Duration Metric */}
+                  <div className="bg-neutral-900/30 rounded-xl p-4 border border-zinc-900 space-y-1">
+                    <div className="flex items-center gap-1.5 font-mono text-[9px] text-neutral-500 uppercase">
+                      <Timer className="w-3.5 h-3.5" />
+                      <span>Estimated Duration</span>
                     </div>
-
-                    <div className="bg-neutral-900/30 rounded-xl p-4 border border-zinc-900 space-y-1">
-                      <div className="flex items-center gap-1.5 font-mono text-[9px] text-neutral-500 uppercase">
-                        <Compass className="w-3.5 h-3.5" />
-                        <span>Complexity</span>
-                      </div>
+                    <div className="flex flex-wrap items-baseline gap-2">
                       <span className="block text-2xl font-bold text-white tracking-tight">
-                        {stats.complexity}%
+                        {stats.weeks} {stats.weeks === 1 ? 'Week' : 'Weeks'}
                       </span>
-                      {/* Micro complexity bar */}
-                      <div className="w-full h-1 bg-neutral-800 rounded-full overflow-hidden mt-1">
-                        <div
-                          className={`h-full rounded-full transition-all duration-500 ${getAccentBg()}`}
-                          style={{ width: `${stats.complexity}%` }}
-                        />
-                      </div>
+                      {(scope === 'growth' || scope === 'smart') && (
+                        <span className="text-[11px] font-mono text-amber-400 font-medium">
+                          + ₹1000/mo maintenance fee
+                        </span>
+                      )}
                     </div>
+                    <span className="block text-[10px] text-neutral-400">
+                      Agile sprint delivery timeline
+                    </span>
                   </div>
 
                   {/* Recommended Tech Stack */}
@@ -474,17 +514,26 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
 
                   <div className="bg-[#050505] p-5 rounded-xl border border-zinc-900 text-left space-y-3 font-mono text-[11px]">
                     <div className="flex justify-between border-b border-zinc-900 pb-2">
-                      <span className="text-zinc-500">BASE ARCHITECTURE</span>
-                      <span className="text-white font-bold uppercase">{scope.replace('_', ' ')}</span>
+                      <span className="text-zinc-500">SELECTED PACKAGE</span>
+                      <span className="text-white font-bold uppercase">{scope}</span>
                     </div>
                     <div className="flex justify-between border-b border-zinc-900 pb-2">
-                      <span className="text-zinc-500">VISUAL STYLE</span>
-                      <span className="text-white font-bold uppercase">{fidelity.replace('_', ' ')}</span>
+                      <span className="text-zinc-500">REACH MODULE</span>
+                      <span className="text-white font-bold uppercase">
+                        {reachEnabled ? fidelity : 'NOT INCLUDED'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-b border-zinc-900 pb-2">
+                      <span className="text-zinc-500">ESTIMATED DURATION</span>
+                      <span className="text-white font-bold uppercase">
+                        {stats.weeks} {stats.weeks === 1 ? 'Week' : 'Weeks'}
+                        {(scope === 'growth' || scope === 'smart') ? ' (+ ₹1000/mo maintenance)' : ''}
+                      </span>
                     </div>
 
                     <div className="flex justify-between text-white font-bold text-xs pt-1">
                       <span className={getAccentText()}>ESTIMATED BUDGET</span>
-                      <span className="text-sm">${stats.price.toLocaleString()} USD</span>
+                      <span className="text-sm">₹{stats.price.toLocaleString('en-IN')} INR</span>
                     </div>
                   </div>
 
