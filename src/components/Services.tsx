@@ -22,20 +22,42 @@ export default function Services() {
               </li>
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-primary text-[18px]">check_circle</span>
-                WebGL & Three.js Experiences
+                WebGL & Motion Engine Experiences
               </li>
             </ul>
-            <a href="#" className="inline-flex items-center gap-2 text-label-sm text-primary uppercase hover:text-primary-fixed transition-colors">
+            <a href="#configurator-anchor" className="inline-flex items-center gap-2 text-label-sm text-primary uppercase hover:text-primary-fixed transition-colors">
               Explore Technical Specs <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </div>
         </div>
-        <div className="lg:col-span-6 lg:order-1 relative h-[500px] rounded-xl overflow-hidden glass-panel flex items-center justify-center">
-          <div className="absolute inset-0 bg-gradient-radial from-secondary/5 to-transparent"></div>
-          <div 
-            className="w-full h-full grayscale bg-cover bg-center" 
-            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBIhcWLXpDGsnzOu8Hun7BxFqhlni6Z6oa1Jc7udN6m7ttgJiU2oU1ZCc9AO6yfXvuvccmAQKLJPIQWcTX6NFPykB-F4oYTaSvdjZBkpD7A0WXJ-xPiXmPU5Idf9V5rARx-w4oTRstb2W4-8wsVxspWiQ74ItefTfOlFDvR_OJd6YD5uPaFNpj9no4kgYTxUd6bjdxhacEtPFndrRabvdHtrMLiNx21Ld1uOmioKx2j_vAsXVTRQedL_Q')" }}
-          ></div>
+        <div className="lg:col-span-6 lg:order-1 relative h-[500px] rounded-xl overflow-hidden glass-panel flex items-center justify-center p-6 bg-neutral-950/60 border border-white/10">
+          {/* Sleek Dark Developer Code & Architecture Terminal Card */}
+          <div className="w-full h-full rounded-lg bg-[#0a0a0e] border border-neutral-800 p-6 font-mono text-xs text-neutral-300 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+            <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block" />
+                <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
+                <span className="text-neutral-500 text-[11px] ml-2">architecture.config.ts</span>
+              </div>
+              <span className="text-[10px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/60">LIVE ENGINE</span>
+            </div>
+
+            <div className="space-y-2 py-4 text-[11px] leading-relaxed text-neutral-400">
+              <p><span className="text-purple-400">import</span> &#123; <span className="text-blue-300">createHighPerformanceEngine</span> &#125; <span className="text-purple-400">from</span> <span className="text-emerald-300">'@onlywebb/core'</span>;</p>
+              <p className="pt-2"><span className="text-purple-400">export const</span> <span className="text-yellow-300">pipelineConfig</span> = &#123;</p>
+              <p className="pl-4">framework: <span className="text-emerald-300">'React 19 / TypeScript'</span>,</p>
+              <p className="pl-4">rendering: <span className="text-emerald-300">'SSR + Edge Hydration'</span>,</p>
+              <p className="pl-4">lighthouseScore: <span className="text-amber-400">100</span>,</p>
+              <p className="pl-4">securityLevel: <span className="text-emerald-300">'Enterprise Grade'</span>,</p>
+              <p>&#125;;</p>
+            </div>
+
+            <div className="pt-3 border-t border-neutral-800 flex items-center justify-between text-[10px] text-neutral-500">
+              <span>BUNDLED IN 0.24s</span>
+              <span className="text-white font-semibold">60 FPS LOCKED</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -58,16 +80,57 @@ export default function Services() {
                 <div className="text-label-sm text-on-surface-variant">Cost Per Acq.</div>
               </div>
             </div>
-            <a href="#" className="inline-flex items-center gap-2 text-label-sm text-secondary uppercase hover:text-secondary-fixed transition-colors">
-              View Case Studies <span className="material-symbols-outlined">arrow_forward</span>
+            <a href="#contact-section" className="inline-flex items-center gap-2 text-label-sm text-secondary uppercase hover:text-secondary-fixed transition-colors">
+              Initiate Project Brief <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </div>
         </div>
-        <div className="lg:col-span-7 relative h-[500px] rounded-xl overflow-hidden glass-panel flex items-center justify-center p-8">
-          <div 
-            className="w-full h-full rounded-lg grayscale bg-cover bg-center" 
-            style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_blCcSoEFuj2CMxNEXNM-6hdo2ZKJAqUALySADAW-obIYUHaFFWSq9pEDDw5s6FVJEfoZDzCk15GwJZcz0lCJuMrt7UeCEXiZSmatz7-JeMS47yx0bWvHjqjsDYFiihTJuElCaePunFfo9uaio1qCPmc7Aso8-r8XhxISqNq22N5h631w4RxJZaFcNomO9ipgECbniBA9bCh81_56EotamDxOTaUINPmKq9xzi4VDNqr2Tw24xUqTmA')" }}
-          ></div>
+        <div className="lg:col-span-7 relative h-[500px] rounded-xl overflow-hidden glass-panel flex items-center justify-center p-6 bg-neutral-950/60 border border-white/10">
+          {/* Conversion Telemetry & Growth Visualizer Panel */}
+          <div className="w-full h-full rounded-lg bg-[#0a0a0e] border border-neutral-800 p-6 flex flex-col justify-between shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-neutral-800 pb-3 font-mono text-xs">
+              <span className="text-neutral-300 font-semibold uppercase">LEAD FUNNEL TELEMETRY</span>
+              <span className="text-emerald-400 font-mono text-[11px]">+248% CONVERSION RATE</span>
+            </div>
+
+            {/* Visual Analytics Bars */}
+            <div className="space-y-4 py-4">
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] font-mono text-neutral-400">
+                  <span>HIGH-INTENT PROSPECTS</span>
+                  <span className="text-white font-bold">8,490 / MO</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-neutral-900 overflow-hidden">
+                  <div className="h-full bg-emerald-500 rounded-full w-[88%]" />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] font-mono text-neutral-400">
+                  <span>QUALIFIED BRIEF TRANSMISSIONS</span>
+                  <span className="text-white font-bold">1,820 / MO</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-neutral-900 overflow-hidden">
+                  <div className="h-full bg-blue-500 rounded-full w-[65%]" />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] font-mono text-neutral-400">
+                  <span>ACQUISITION COST OPTIMIZATION</span>
+                  <span className="text-white font-bold">99.4% OPTIMAL</span>
+                </div>
+                <div className="w-full h-2 rounded-full bg-neutral-900 overflow-hidden">
+                  <div className="h-full bg-purple-500 rounded-full w-[94%]" />
+                </div>
+              </div>
+            </div>
+
+            <div className="p-3 rounded bg-neutral-900/80 border border-white/5 font-mono text-[10px] text-neutral-400 flex items-center justify-between">
+              <span>REAL-TIME ATTRIBUTION SOLVER</span>
+              <span className="text-emerald-400">ACTIVE Sync</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -91,16 +154,14 @@ export default function Services() {
                 <div className="text-label-sm text-on-surface-variant">Brand Monitoring</div>
               </div>
             </div>
-            <a href="#" className="inline-flex items-center gap-2 text-label-sm text-primary uppercase hover:text-primary-fixed transition-colors">
+            <a href="#contact-section" className="inline-flex items-center gap-2 text-label-sm text-primary uppercase hover:text-primary-fixed transition-colors">
               Explore Campaigns <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </div>
         </div>
-        <div className="lg:col-span-6 lg:order-1 relative h-[500px] rounded-xl overflow-hidden glass-panel flex items-center justify-center">
-          <div className="absolute inset-0 bg-gradient-radial from-secondary/5 to-transparent"></div>
-          {/* Using an abstract image representing social/network/engagement in the same aesthetic */}
+        <div className="lg:col-span-6 lg:order-1 relative h-[500px] rounded-xl overflow-hidden glass-panel flex items-center justify-center p-6 bg-neutral-950/60 border border-white/10">
           <div 
-            className="w-full h-full grayscale bg-cover bg-center mix-blend-screen opacity-90" 
+            className="w-full h-full rounded-lg bg-cover bg-center mix-blend-screen opacity-90 border border-neutral-800" 
             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')" }}
           ></div>
         </div>

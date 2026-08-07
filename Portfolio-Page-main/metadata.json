@@ -1,0 +1,6 @@
+{
+  "name": "Portfolio Library",
+  "description": "A modern dark-themed creative portfolio and project library with interactive gallery showcase and fanned card deck.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
