@@ -24,9 +24,7 @@ export const PROJECTS: Project[] = [
       tools: ['Figma', 'React', 'Tailwind CSS', 'Recharts'],
       liveUrl: 'https://example.com/centefields'
     },
-    featuredInHero: true,
-    fanAngle: -14,
-    fanOffsetY: 28,
+    featuredInHero: false,
     badgeText: 'Analytics Platform'
   },
   {
@@ -50,9 +48,7 @@ export const PROJECTS: Project[] = [
       role: 'Spatial Designer',
       tools: ['Rhino', 'V-Ray', 'Sketchup']
     },
-    featuredInHero: true,
-    fanAngle: -10,
-    fanOffsetY: 18,
+    featuredInHero: false,
     badgeText: 'Studio Design'
   },
   {
@@ -77,8 +73,8 @@ export const PROJECTS: Project[] = [
       tools: ['TypeScript', 'Electron', 'Tailwind CSS']
     },
     featuredInHero: true,
-    fanAngle: -6,
-    fanOffsetY: 10,
+    fanAngle: -10,
+    fanOffsetY: 16,
     badgeText: 'IDE Platform'
   },
   {
@@ -103,8 +99,8 @@ export const PROJECTS: Project[] = [
       tools: ['SolidWorks', 'KeyShot']
     },
     featuredInHero: true,
-    fanAngle: -2,
-    fanOffsetY: 4,
+    fanAngle: -5,
+    fanOffsetY: 5,
     badgeText: 'Minimal Form'
   },
   {
@@ -129,7 +125,7 @@ export const PROJECTS: Project[] = [
       tools: ['Adobe Illustrator', 'InDesign', 'After Effects']
     },
     featuredInHero: true,
-    fanAngle: 2,
+    fanAngle: 0,
     fanOffsetY: 0,
     badgeText: 'Drawings. Logos. Type.'
   },
@@ -155,8 +151,8 @@ export const PROJECTS: Project[] = [
       tools: ['Hasselblad H6D', 'Capture One', 'Photoshop']
     },
     featuredInHero: true,
-    fanAngle: 6,
-    fanOffsetY: 8,
+    fanAngle: 5,
+    fanOffsetY: 5,
     badgeText: 'Editorial Photo'
   },
   {
@@ -206,9 +202,7 @@ export const PROJECTS: Project[] = [
       role: 'Interior Architect',
       tools: ['Autocad', 'Sketchup']
     },
-    featuredInHero: true,
-    fanAngle: 14,
-    fanOffsetY: 24,
+    featuredInHero: false,
     badgeText: 'Loft Interior'
   },
   {
@@ -232,9 +226,7 @@ export const PROJECTS: Project[] = [
       role: 'Design System Architect',
       tools: ['Figma', 'Style Dictionary', 'Storybook']
     },
-    featuredInHero: true,
-    fanAngle: 18,
-    fanOffsetY: 32,
+    featuredInHero: false,
     badgeText: 'Design System'
   },
   {

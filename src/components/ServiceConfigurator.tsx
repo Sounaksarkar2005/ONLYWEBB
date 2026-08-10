@@ -6,6 +6,7 @@ import { AccentColor, ProjectScope, VisualFidelity, AddOn } from '../types';
 interface ServiceConfiguratorProps {
   accentColor: AccentColor;
   initialServiceFocus?: string;
+  onLockSpecification?: (summaryText: string) => void;
 }
 
 const ADD_ONS: AddOn[] = [
@@ -35,7 +36,7 @@ const ADD_ONS: AddOn[] = [
   },
 ];
 
-export default function ServiceConfigurator({ accentColor, initialServiceFocus }: ServiceConfiguratorProps) {
+export default function ServiceConfigurator({ accentColor, initialServiceFocus, onLockSpecification }: ServiceConfiguratorProps) {
   // Base package selection (customer chooses exactly 1 from launch, growth, smart)
   const [scope, setScope] = useState<ProjectScope>('growth');
   
@@ -132,6 +133,37 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
   };
 
   const stats = calculateStats();
+
+  const generateSpecSummaryText = () => {
+    const packageName = scope.toUpperCase();
+    const basePriceLabel = scope === 'launch' ? 'Base ₹5,499' : scope === 'growth' ? 'Base ₹10,999 (+ ₹1,000/mo maintenance)' : 'Base ₹9,999 (+ ₹1,000/mo maintenance)';
+    const reachText = reachEnabled ? `${fidelity.toUpperCase()} (+₹${fidelity === 'basic' ? '10,000' : fidelity === 'standard' ? '9,000' : '18,000'} / monthly ad)` : 'NOT INCLUDED';
+    const durationText = `${stats.weeks} ${stats.weeks === 1 ? 'Week' : 'Weeks'}`;
+    const budgetText = `₹${stats.price.toLocaleString('en-IN')} INR`;
+    const techStackText = stats.techStack.join(', ');
+
+    return `=== SELECTED PACKAGE & PRICING SUMMARY ===
+• Package Name: ${packageName} (${basePriceLabel})
+• Reach Plan: ${reachText}
+• Estimated Duration: ${durationText}
+• Total Projected Investment: ${budgetText}
+• Included Tech Stack: ${techStackText}
+===========================================`;
+  };
+
+  const handleLockSpec = () => {
+    setSpecLocked(true);
+  };
+
+  const handleTransmitNowClick = () => {
+    if (onLockSpecification) {
+      onLockSpecification(generateSpecSummaryText());
+    }
+    const contactSection = document.getElementById('contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   const getAccentText = () => {
     switch (accentColor) {
@@ -485,9 +517,7 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
                   {/* Submit / Call To Action CTA */}
                   <button
                     id="btn-configurator-submit"
-                    onClick={() => {
-                      setSpecLocked(true);
-                    }}
+                    onClick={handleLockSpec}
                     className={`w-full py-4 px-6 rounded-xl text-center font-bold text-xs uppercase tracking-widest text-black shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-95 cursor-pointer flex items-center justify-center gap-2 ${getAccentBg()}`}
                   >
                     <CreditCard className="w-4 h-4" />
@@ -538,7 +568,7 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
                   </div>
 
                   <p className="text-xs text-zinc-400 leading-relaxed px-2">
-                    Our engineering desk has synchronized this architecture blueprint. Enter your name in the transmitter below to complete commission routes.
+                    Specification synchronized to project details. Click below to jump down to the brief form.
                   </p>
 
                   <div className="flex gap-3">
@@ -549,12 +579,13 @@ export default function ServiceConfigurator({ accentColor, initialServiceFocus }
                     >
                       Modify Parameters
                     </button>
-                    <a
-                      href="#contact-section"
-                      className={`flex-1 py-3 px-4 text-center rounded-xl text-[10px] font-mono font-bold uppercase tracking-wider text-black transition-transform duration-300 hover:scale-[1.03] flex items-center justify-center gap-1.5 ${getAccentBg()}`}
+                    <button
+                      id="btn-transmit-now"
+                      onClick={handleTransmitNowClick}
+                      className={`flex-1 py-3 px-4 text-center rounded-xl text-[10px] font-mono font-bold uppercase tracking-wider text-black transition-transform duration-300 hover:scale-[1.03] flex items-center justify-center gap-1.5 cursor-pointer ${getAccentBg()}`}
                     >
                       Transmit Now
-                    </a>
+                    </button>
                   </div>
                 </motion.div>
               )}

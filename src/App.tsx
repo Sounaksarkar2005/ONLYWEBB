@@ -110,6 +110,38 @@ export default function App() {
     }
   };
 
+  // Handler for transferring locked specification to Project Details form field
+  const handleLockSpecification = (specSummaryText: string) => {
+    setFormState(prev => {
+      const existing = prev.message;
+      if (!existing) {
+        return { ...prev, message: specSummaryText };
+      }
+      if (existing.includes('=== SELECTED PACKAGE & PRICING SUMMARY ===')) {
+        const parts = existing.split('=== SELECTED PACKAGE & PRICING SUMMARY ===');
+        const userNotesBefore = parts[0].trim();
+        const endSplit = parts[1] ? parts[1].split('===========================================') : [];
+        const userNotesAfter = endSplit[1] ? endSplit[1].trim() : '';
+
+        let result = specSummaryText;
+        if (userNotesBefore) result = `${userNotesBefore}\n\n${result}`;
+        if (userNotesAfter) result = `${result}\n\n${userNotesAfter}`;
+        return { ...prev, message: result };
+      }
+      if (existing.includes('[SELECTED SPECIFICATION DETAILS]')) {
+        const userNotesBefore = existing.split('[SELECTED SPECIFICATION DETAILS]')[0].trim();
+        return {
+          ...prev,
+          message: userNotesBefore ? `${userNotesBefore}\n\n${specSummaryText}` : specSummaryText
+        };
+      }
+      return {
+        ...prev,
+        message: `${existing}\n\n${specSummaryText}`
+      };
+    });
+  };
+
   // Form Submission
   const handleSubmitContact = (e: React.FormEvent) => {
     e.preventDefault();
@@ -235,8 +267,8 @@ export default function App() {
                 <span className="text-neutral-300 tracking-wide font-medium">{timeStr || '00:00:00 UTC'}</span>
               </div>
               
-              <button className="flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors">
-                START A PROJECT
+              <button className="flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors cursor-pointer">
+                LOGIN
                 <ArrowRight className="w-3 h-3" />
               </button>
             </div>
@@ -341,6 +373,7 @@ export default function App() {
               <ServiceConfigurator 
                 accentColor={accentColor} 
                 initialServiceFocus={focusedService}
+                onLockSpecification={handleLockSpecification}
               />
             </section>
 
@@ -410,16 +443,22 @@ export default function App() {
                       </div>
 
                       <div className="space-y-2">
-                        <label htmlFor="form-textarea-message" className="block font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-                          PROJECT DETAILS
-                        </label>
+                        <div className="flex items-center justify-between">
+                          <label htmlFor="form-textarea-message" className="block font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
+                            PROJECT DETAILS & PACKAGE SPECIFICATION
+                          </label>
+                          <span className="font-mono text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            PACKAGE & PRICING SYNCED
+                          </span>
+                        </div>
                         <textarea
                           id="form-textarea-message"
-                          rows={5}
-                          placeholder="Describe your visual concept, tech requirements, or ideal interactions..."
+                          rows={8}
+                          placeholder="Selected package details, pricing, and project requirements will appear here..."
                           value={formState.message}
                           onChange={(e) => setFormState(prev => ({ ...prev, message: e.target.value }))}
-                          className="w-full bg-[#0c0c0c] border border-zinc-900 focus:border-zinc-700 rounded-xl px-4 py-3.5 text-sm text-white placeholder-neutral-600 outline-none transition-colors resize-none"
+                          className="w-full bg-[#0c0c0c] border border-zinc-800 focus:border-zinc-600 rounded-xl px-4 py-3.5 text-xs font-mono leading-relaxed text-white placeholder-neutral-500 outline-none transition-colors resize-y"
                         />
                       </div>
 
