@@ -13,6 +13,7 @@ import Services from './components/Services';
 import Hero from './components/Hero';
 import CTA from './components/CTA';
 import PortfolioSection from './components/portfolio/PortfolioSection';
+import LoginPage from './components/LoginPage';
 import { CanvasConfig, AccentColor } from './types';
 
 export default function App() {
@@ -22,7 +23,8 @@ export default function App() {
   // Real-time digital clock state
   const [timeStr, setTimeStr] = useState<string>('');
 
-  const [activePage, setActivePage] = useState<'home' | 'services' | 'portfolio'>('home');
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [activePage, setActivePage] = useState<'login' | 'home' | 'services' | 'portfolio'>('login');
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -31,8 +33,13 @@ export default function App() {
         setActivePage('services');
       } else if (hash === '#portfolio') {
         setActivePage('portfolio');
-      } else {
+      } else if (hash === '#home') {
         setActivePage('home');
+      } else if (hash === '#login') {
+        setActivePage('login');
+      } else {
+        // Default first page is login page
+        setActivePage('login');
       }
     };
     
@@ -207,13 +214,30 @@ export default function App() {
     }
   };
 
+  if (activePage === 'login') {
+    return (
+      <LoginPage 
+        onLoginSuccess={(email) => {
+          setCurrentUser(email);
+          setTimeout(() => {
+            setActivePage('home');
+            window.location.hash = '#home';
+          }, 600);
+        }}
+        onExploreGuest={() => {
+          setActivePage('home');
+          window.location.hash = '#home';
+        }}
+        currentUserEmail={currentUser}
+      />
+    );
+  }
+
   return (
     <div id="main-landing-app" className="relative min-h-screen bg-[#050505] text-white font-sans overflow-x-hidden scanline-overlay selection:bg-white selection:text-black">
       
       {/* 3D Interactive Vector Background Canvas */}
       <BackgroundCanvas config={canvasConfig} accentColor={accentColor} />
-
-
 
       {/* Core Layout Wrapper */}
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -222,7 +246,7 @@ export default function App() {
         <div className="fixed top-0 left-0 right-0 w-full z-50 pt-4 px-4 pointer-events-none">
           <header id="app-header" className="pointer-events-auto flex items-center justify-between max-w-7xl mx-auto px-6 py-4 bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 rounded-full shadow-lg">
             {/* Logo */}
-            <a href="#" className="flex items-center">
+            <a href="#home" onClick={() => setActivePage('home')} className="flex items-center">
               <span className="font-brand font-bold text-3xl tracking-wider text-white uppercase">
                 ONLYWEBB
               </span>
@@ -230,7 +254,7 @@ export default function App() {
 
             {/* Nav links */}
             <nav className="hidden md:flex items-center gap-8 font-mono text-[11px] font-semibold text-neutral-400 tracking-widest uppercase">
-              <a href="#" className={`relative flex flex-col items-center transition-colors ${activePage === 'home' ? 'text-white' : 'hover:text-white'}`}>
+              <a href="#home" className={`relative flex flex-col items-center transition-colors ${activePage === 'home' ? 'text-white' : 'hover:text-white'}`}>
                 HOME
                 {activePage === 'home' && (
                   <>
@@ -267,10 +291,31 @@ export default function App() {
                 <span className="text-neutral-300 tracking-wide font-medium">{timeStr || '00:00:00 UTC'}</span>
               </div>
               
-              <button className="flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors cursor-pointer">
-                LOGIN
-                <ArrowRight className="w-3 h-3" />
-              </button>
+              {currentUser ? (
+                <button 
+                  onClick={() => {
+                    setCurrentUser(null);
+                    setActivePage('login');
+                    window.location.hash = '#login';
+                  }}
+                  className="flex items-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-4 py-2 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase transition-colors cursor-pointer"
+                  title="Click to Logout"
+                >
+                  LOGOUT ({currentUser.split('@')[0]})
+                </button>
+              ) : (
+                <a 
+                  href="#login"
+                  onClick={() => {
+                    setActivePage('login');
+                    window.location.hash = '#login';
+                  }}
+                  className="flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors cursor-pointer"
+                >
+                  LOGIN
+                  <ArrowRight className="w-3 h-3" />
+                </a>
+              )}
             </div>
           </header>
         </div>

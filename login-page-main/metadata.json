@@ -1,0 +1,6 @@
+{
+  "name": "Smokey Login Form",
+  "description": "Interactive WebGL smokey background shader with glassmorphism login form",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
