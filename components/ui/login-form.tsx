@@ -1,6 +1,13 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { User, Lock, ArrowRight, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
+import { User, Lock, ArrowRight, Eye, EyeOff, CheckCircle2, AlertCircle } from 'lucide-react';
+import { 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signInWithPopup, 
+  sendPasswordResetEmail 
+} from "firebase/auth";
+import { auth, googleProvider } from "@/src/firebase";
 
 // Vertex shader source code
 const vertexSmokeySource = `
@@ -214,34 +221,92 @@ export function LoginForm({ onLoginSuccess }: { onLoginSuccess?: (email: string)
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setSuccessMessage(null);
+    setErrorMessage(null);
 
-    setTimeout(() => {
-      setIsLoading(false);
-      const msg = isSignUp ? "Account created successfully!" : "Signed in successfully!";
-      setSuccessMessage(msg);
-      if (onLoginSuccess && email) {
-        onLoginSuccess(email);
+    try {
+      if (isSignUp) {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const userEmail = user.email || email;
+        setSuccessMessage("Account created successfully!");
+        if (onLoginSuccess && userEmail) {
+          onLoginSuccess(userEmail);
+        }
+      } else {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const userEmail = user.email || email;
+        setSuccessMessage("Signed in successfully!");
+        if (onLoginSuccess && userEmail) {
+          onLoginSuccess(userEmail);
+        }
       }
-    }, 1200);
+    } catch (err: any) {
+      console.error("Firebase auth error:", err);
+      let friendlyMsg = "Authentication failed. Please check your details.";
+      if (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {
+        friendlyMsg = "Invalid email or password. Please try again.";
+      } else if (err.code === "auth/email-already-in-use") {
+        friendlyMsg = "An account with this email already exists.";
+      } else if (err.code === "auth/weak-password") {
+        friendlyMsg = "Password should be at least 6 characters long.";
+      } else if (err.code === "auth/invalid-email") {
+        friendlyMsg = "Please enter a valid email address.";
+      } else if (err.message) {
+        friendlyMsg = err.message.replace("Firebase: ", "");
+      }
+      setErrorMessage(friendlyMsg);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
     setIsLoading(true);
     setSuccessMessage(null);
-    setTimeout(() => {
-      setIsLoading(false);
-      const googleEmail = "demo.user@google.com";
-      setEmail(googleEmail);
+    setErrorMessage(null);
+
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const userEmail = user.email || "user@google.com";
       setSuccessMessage("Signed in with Google!");
-      if (onLoginSuccess) {
-        onLoginSuccess(googleEmail);
+      if (onLoginSuccess && userEmail) {
+        onLoginSuccess(userEmail);
       }
-    }, 1000);
+    } catch (err: any) {
+      console.error("Google login error:", err);
+      if (err.code !== "auth/popup-closed-by-user") {
+        let friendlyMsg = err.message ? err.message.replace("Firebase: ", "") : "Google Sign-In failed.";
+        if (err.code === "auth/popup-blocked") {
+          friendlyMsg = "Popup was blocked by browser. Please allow popups for this site.";
+        }
+        setErrorMessage(friendlyMsg);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!email) {
+      setErrorMessage("Please enter your email address above to reset password.");
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setSuccessMessage(`Password reset link sent to ${email}`);
+      setErrorMessage(null);
+    } catch (err: any) {
+      setErrorMessage(err.message ? err.message.replace("Firebase: ", "") : "Failed to send reset email.");
+    }
   };
 
   return (
@@ -259,6 +324,13 @@ export function LoginForm({ onLoginSuccess }: { onLoginSuccess?: (email: string)
         <div className="flex items-center gap-2 p-3 bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 rounded-lg text-sm animate-fadeIn">
           <CheckCircle2 size={18} className="shrink-0 text-emerald-400" />
           <span>{successMessage}</span>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="flex items-center gap-2 p-3 bg-red-500/20 border border-red-400/30 text-red-200 rounded-lg text-sm animate-fadeIn">
+          <AlertCircle size={18} className="shrink-0 text-red-400" />
+          <span>{errorMessage}</span>
         </div>
       )}
 
@@ -313,7 +385,7 @@ export function LoginForm({ onLoginSuccess }: { onLoginSuccess?: (email: string)
 
         {!isSignUp && (
           <div className="flex items-center justify-between">
-            <a href="#" onClick={(e) => { e.preventDefault(); alert("Password reset link sent to your email!"); }} className="text-xs text-gray-300 hover:text-white transition">
+            <a href="#" onClick={handleForgotPassword} className="text-xs text-gray-300 hover:text-white transition cursor-pointer">
               Forgot Password?
             </a>
           </div>
@@ -362,6 +434,7 @@ export function LoginForm({ onLoginSuccess }: { onLoginSuccess?: (email: string)
           onClick={() => {
             setIsSignUp(!isSignUp);
             setSuccessMessage(null);
+            setErrorMessage(null);
           }}
           className="font-semibold text-blue-400 hover:text-blue-300 transition cursor-pointer underline underline-offset-2"
         >

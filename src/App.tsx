@@ -15,6 +15,8 @@ import CTA from './components/CTA';
 import PortfolioSection from './components/portfolio/PortfolioSection';
 import LoginPage from './components/LoginPage';
 import { CanvasConfig, AccentColor } from './types';
+import { auth } from './firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export default function App() {
   const [accentColor, setAccentColor] = useState<AccentColor>('pure_mono');
@@ -25,6 +27,17 @@ export default function App() {
 
   const [currentUser, setCurrentUser] = useState<string | null>(null);
   const [activePage, setActivePage] = useState<'login' | 'home' | 'services' | 'portfolio'>('login');
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user.email || 'Authenticated User');
+      } else {
+        setCurrentUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -293,7 +306,8 @@ export default function App() {
               
               {currentUser ? (
                 <button 
-                  onClick={() => {
+                  onClick={async () => {
+                    await signOut(auth);
                     setCurrentUser(null);
                     setActivePage('login');
                     window.location.hash = '#login';
