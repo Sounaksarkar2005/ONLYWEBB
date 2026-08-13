@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Cpu, Globe, Activity, ChevronDown, Settings, Mail, Terminal, 
-  ArrowRight, Shield, Zap, CheckCircle 
+  ArrowRight, Shield, Zap, CheckCircle, Menu, X 
 } from 'lucide-react';
 
 import BackgroundCanvas from './components/BackgroundCanvas';
@@ -14,6 +14,7 @@ import Hero from './components/Hero';
 import CTA from './components/CTA';
 import PortfolioSection from './components/portfolio/PortfolioSection';
 import LoginPage from './components/LoginPage';
+import LegalModal from './components/LegalModal';
 import { CanvasConfig, AccentColor } from './types';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -21,6 +22,8 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 export default function App() {
   const [accentColor, setAccentColor] = useState<AccentColor>('pure_mono');
   const [focusedService, setFocusedService] = useState<string>('');
+  const [legalModalType, setLegalModalType] = useState<'privacy' | 'terms' | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Real-time digital clock state
   const [timeStr, setTimeStr] = useState<string>('');
@@ -46,12 +49,13 @@ export default function App() {
         setActivePage('services');
       } else if (hash === '#portfolio') {
         setActivePage('portfolio');
-      } else if (hash === '#home') {
-        setActivePage('home');
       } else if (hash === '#login') {
         setActivePage('login');
+      } else if (hash) {
+        // Any section anchor on the main page (#home, #configurator-anchor, #packages-anchor, #contact-section, etc.)
+        setActivePage('home');
       } else {
-        // Default first page is login page
+        // Default initial entry without hash
         setActivePage('login');
       }
     };
@@ -296,8 +300,8 @@ export default function App() {
               </a>
             </nav>
 
-            {/* Right side: Time / Button */}
-            <div className="flex items-center gap-6">
+            {/* Right side: Time / Button / Mobile Toggle */}
+            <div className="flex items-center gap-3 sm:gap-6">
               {/* Server Clock */}
               <div className="hidden lg:flex items-center gap-2 font-mono text-[10px] text-neutral-500">
                 <span className="block text-[8px] text-neutral-600 text-right">SERVER CLOCK</span>
@@ -312,7 +316,7 @@ export default function App() {
                     setActivePage('login');
                     window.location.hash = '#login';
                   }}
-                  className="flex items-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-4 py-2 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase transition-colors cursor-pointer"
+                  className="flex items-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-3 sm:px-4 py-2 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase transition-colors cursor-pointer"
                   title="Click to Logout"
                 >
                   LOGOUT ({currentUser.split('@')[0]})
@@ -324,14 +328,61 @@ export default function App() {
                     setActivePage('login');
                     window.location.hash = '#login';
                   }}
-                  className="flex items-center gap-2 bg-white text-black px-6 py-2.5 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors cursor-pointer"
+                  className="flex items-center gap-2 bg-white text-black px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors cursor-pointer"
                 >
                   LOGIN
                   <ArrowRight className="w-3 h-3" />
                 </a>
               )}
+
+              {/* Mobile Menu Hamburger Toggle */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden p-2 rounded-full text-neutral-300 hover:text-white bg-white/5 border border-white/10 cursor-pointer"
+                aria-label="Toggle mobile menu"
+              >
+                {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              </button>
             </div>
           </header>
+
+          {/* Mobile Navigation Dropdown Menu */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.2 }}
+                className="md:hidden pointer-events-auto mt-2 max-w-7xl mx-auto p-3 bg-[#0a0a0a]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl space-y-2 font-mono text-xs uppercase tracking-widest"
+              >
+                <a 
+                  href="#home" 
+                  onClick={() => { setActivePage('home'); setMobileMenuOpen(false); }}
+                  className={`flex items-center justify-between p-3 rounded-xl transition-colors ${activePage === 'home' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
+                >
+                  <span>HOME</span>
+                  {activePage === 'home' && <span className="w-2 h-2 rounded-full bg-white" />}
+                </a>
+                <a 
+                  href="#services-section" 
+                  onClick={() => { setActivePage('services'); setMobileMenuOpen(false); }}
+                  className={`flex items-center justify-between p-3 rounded-xl transition-colors ${activePage === 'services' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
+                >
+                  <span>SERVICES</span>
+                  {activePage === 'services' && <span className="w-2 h-2 rounded-full bg-white" />}
+                </a>
+                <a 
+                  href="#portfolio" 
+                  onClick={() => { setActivePage('portfolio'); setMobileMenuOpen(false); }}
+                  className={`flex items-center justify-between p-3 rounded-xl transition-colors ${activePage === 'portfolio' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
+                >
+                  <span>PORTFOLIO</span>
+                  {activePage === 'portfolio' && <span className="w-2 h-2 rounded-full bg-white" />}
+                </a>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {activePage === 'portfolio' ? (
@@ -408,12 +459,6 @@ export default function App() {
                   <ChevronDown className="w-4 h-4" />
                 </a>
               </motion.div>
-
-
-              {/* Arrow Indicator */}
-              <div className="mt-12 animate-bounce">
-                <ChevronDown className="w-5 h-5 text-neutral-600" />
-              </div>
             </section>
 
 
@@ -427,8 +472,9 @@ export default function App() {
               />
             </section>
 
-            {/* Interactive Spec Configurator Section */}
+            {/* Interactive Spec Configurator / Package Section */}
             <section id="configurator-anchor" className="py-20 lg:py-32 bg-neutral-950/20 border-t border-white/5 relative">
+              <div id="packages-anchor" className="absolute -top-24" />
               <ServiceConfigurator 
                 accentColor={accentColor} 
                 initialServiceFocus={focusedService}
@@ -572,11 +618,26 @@ export default function App() {
                 </span>
               </div>
               <span className="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">
-                © {new Date().getFullYear()} ONLYWEBB. Creative Engineering and Architecture.
+                © 2025-{new Date().getFullYear()} ONLYWEBB. Creative Engineering and Architecture.
               </span>
             </div>
 
-
+            {/* Middle Column: Legal Buttons */}
+            <div className="flex items-center gap-4 sm:gap-6 font-mono text-xs">
+              <button 
+                onClick={() => setLegalModalType('privacy')}
+                className="text-zinc-400 hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
+              >
+                Privacy Policy
+              </button>
+              <span className="text-zinc-700">•</span>
+              <button 
+                onClick={() => setLegalModalType('terms')}
+                className="text-zinc-400 hover:text-white transition-colors underline-offset-4 hover:underline cursor-pointer"
+              >
+                Terms & Conditions
+              </button>
+            </div>
 
             {/* Right Column: Contact Us & Social Links */}
             <div className="flex flex-col items-center md:items-end gap-2 font-mono">
@@ -625,6 +686,12 @@ export default function App() {
             </div>
           </div>
         </footer>
+
+        {/* Legal Modal Dialog */}
+        <LegalModal
+          type={legalModalType}
+          onClose={() => setLegalModalType(null)}
+        />
 
       </div>
     </div>

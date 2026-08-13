@@ -120,7 +120,7 @@ export default function ServiceCards({ accentColor, onCardHover, onSelectService
       </div>
 
       {/* Services Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {SERVICES.map((service, index) => {
           const Icon = service.icon;
           return (
@@ -137,7 +137,7 @@ export default function ServiceCards({ accentColor, onCardHover, onSelectService
               onMouseLeave={() => {
                 onCardHover(false);
               }}
-              className="group relative flex flex-col justify-between rounded-2xl border border-zinc-900 bg-zinc-950/20 p-8 backdrop-blur-xl transition-all duration-500 hover:border-zinc-800 hover:bg-zinc-900/10 hover:-translate-y-1"
+              className="group relative flex flex-col justify-between rounded-2xl border border-zinc-900 bg-zinc-950/20 p-6 sm:p-8 backdrop-blur-xl transition-all duration-500 hover:border-zinc-800 hover:bg-zinc-900/10 hover:-translate-y-1"
               style={{
                 borderWidth: '1px',
               }}

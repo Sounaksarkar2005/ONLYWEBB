@@ -96,12 +96,12 @@ export const FannedCardDeck: React.FC<FannedCardDeckProps> = ({
                 }}
                 style={{
                   zIndex,
-                  marginLeft: index === 0 ? 0 : '-3.5rem',
                 }}
                 className={`
                   relative cursor-pointer group flex-shrink-0
-                  w-[120px] sm:w-[160px] md:w-[200px] lg:w-[230px] xl:w-[250px]
-                  h-[180px] sm:h-[240px] md:h-[290px] lg:h-[330px] xl:h-[350px]
+                  ${index === 0 ? 'ml-0' : '-ml-5 sm:-ml-8 md:-ml-14'}
+                  w-[110px] sm:w-[160px] md:w-[200px] lg:w-[230px] xl:w-[250px]
+                  h-[170px] sm:h-[240px] md:h-[290px] lg:h-[330px] xl:h-[350px]
                   rounded-t-2xl sm:rounded-t-3xl
                   overflow-hidden
                   border-t-2 border-x border-white/20

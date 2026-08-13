@@ -1,8 +1,8 @@
 export default function Hero() {
   return (
-    <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop mb-section-gap relative">
+    <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop mb-12 sm:mb-16 md:mb-section-gap relative">
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary-container/10 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center min-h-[450px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center min-h-[300px] md:min-h-[420px]">
         <div className="lg:col-span-12 z-10 space-y-6">
           <span className="text-label-sm text-primary uppercase tracking-widest block font-mono">
             Digital Engineering Studio

@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: 'CSRiposte';
   src: url('/fonts/CSRiposte-Regular_demo.otf') format('opentype');
@@ -32,24 +36,17 @@
   --spacing-margin-desktop: 64px;
 }
 
-/* Custom Scrollbar */
+/* Hide scrollbars across all browsers while maintaining smooth scroll functionality */
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(10, 10, 10, 0.5);
-  backdrop-filter: blur(4px);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  display: none;
+  width: 0px;
+  height: 0px;
+  background: transparent;
 }
 
 /* Grid overlay background utility */
@@ -100,16 +97,16 @@
 @layer utilities {
   .text-display-lg {
     font-family: var(--font-display, "Space Grotesk", sans-serif);
-    font-size: clamp(48px, 6vw, 80px);
+    font-size: clamp(34px, 6.5vw, 80px);
     line-height: 1.1;
     letter-spacing: -0.02em;
     font-weight: 800;
   }
   .text-headline-lg {
     font-family: var(--font-sans, "Inter", sans-serif);
-    font-size: 32px;
-    line-height: 1.2;
-    letter-spacing: 0.05em;
+    font-size: clamp(24px, 4vw, 36px);
+    line-height: 1.25;
+    letter-spacing: 0.03em;
     font-weight: 700;
   }
   .text-label-sm {

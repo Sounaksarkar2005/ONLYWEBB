@@ -439,7 +439,7 @@ export default function App() {
                 </span>
               </div>
               <span className="font-mono text-[9px] text-zinc-500 uppercase tracking-widest">
-                © {new Date().getFullYear()} ONLYWEBB. Creative Engineering and Architecture.
+                © 2025-{new Date().getFullYear()} ONLYWEBB. Creative Engineering and Architecture.
               </span>
             </div>
 
