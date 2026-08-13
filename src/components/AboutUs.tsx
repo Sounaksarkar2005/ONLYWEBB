@@ -29,7 +29,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Pioneering high-speed digital infrastructure, full-stack React engines, and custom WebGL mathematical vector spaces.',
     skills: ['System Architecture', 'React 19', 'TypeScript', 'WebGL'],
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop',
-    experienceYears: '5+ YRS',
+    experienceYears: '2+ YRS',
   },
   {
     id: 'm2',
@@ -38,7 +38,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Directing multi-platform content campaigns, audience engagement strategies, and the REACH social growth framework.',
     skills: ['Social Strategy', 'Content Direction', 'REACH Protocol', 'Growth Analytics'],
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop',
-    experienceYears: '4+ YRS',
+    experienceYears: '2+ YRS',
   },
   {
     id: 'm3',
@@ -47,7 +47,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Crafting intuitive user journeys, high-contrast dark mode design tokens, and converted brand experiences.',
     skills: ['UX Architecture', 'Figma Tokens', 'User Research', 'Design Systems'],
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop',
-    experienceYears: '4+ YRS',
+    experienceYears: '2+ YRS',
   },
   {
     id: 'm4',
@@ -56,18 +56,18 @@ const TEAM_MEMBERS: TeamMember[] = [
     bio: 'Architecting precision lead generation funnels, automated marketing workflows, and multichannel telemetry.',
     skills: ['Conversion Funnels', 'Analytics Telemetry', 'SEO Architecture', 'REACH Protocol'],
     image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop',
-    experienceYears: '3+ YRS',
+    experienceYears: '2+ YRS',
   },
 ];
 
 const MILESTONES = [
   {
-    year: '2023',
+    year: '2025',
     title: 'Studio Foundation',
     desc: 'ONLYWEBB was established in Kolkata with a core mission: replacing generic web templates with bespoke, high-performance software engineering.',
   },
   {
-    year: '2024',
+    year: '2025',
     title: 'WebGL & Motion Engine Expansion',
     desc: 'Integrated interactive 3D physics solvers, fluid vector canvases, and enterprise single-page applications into our core tech stack.',
   },
