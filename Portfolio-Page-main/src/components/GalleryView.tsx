@@ -12,8 +12,8 @@ interface GalleryViewProps {
 const CATEGORIES: ProjectCategory[] = [
   'All',
   'UI/UX Design',
-  'Graphic Design',
-  'Architecture',
+  'Webpage Design',
+  'Lifestyle',
   'Web Apps',
   'Photography',
   'Brand Identity',

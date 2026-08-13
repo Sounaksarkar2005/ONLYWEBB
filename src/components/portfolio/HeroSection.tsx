@@ -25,15 +25,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         className="relative w-full max-w-7xl bg-[#09090b] border border-neutral-800/90 rounded-2xl sm:rounded-3xl lg:rounded-[2.5rem] overflow-hidden flex flex-col justify-between shadow-[0_0_80px_rgba(0,0,0,0.9)]"
       >
         {/* Subtle Ambient Radial Glow in Header background */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-80 bg-gradient-to-b from-neutral-800/20 via-neutral-900/10 to-transparent blur-3xl pointer-events-none" />
-
-        {/* Header Badge */}
         <div className="relative z-10 pt-10 sm:pt-14 md:pt-16 px-4 text-center flex flex-col items-center">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-400 text-xs font-mono tracking-widest uppercase mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-white" />
-            SHOWCASE ARCHIVE
-          </span>
-
           {/* Main Title: Browse my library */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}

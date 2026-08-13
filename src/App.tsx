@@ -15,6 +15,7 @@ import CTA from './components/CTA';
 import PortfolioSection from './components/portfolio/PortfolioSection';
 import LoginPage from './components/LoginPage';
 import LegalModal from './components/LegalModal';
+import AboutUs from './components/AboutUs';
 import { CanvasConfig, AccentColor } from './types';
 import { auth } from './firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -29,14 +30,16 @@ export default function App() {
   const [timeStr, setTimeStr] = useState<string>('');
 
   const [currentUser, setCurrentUser] = useState<string | null>(null);
-  const [activePage, setActivePage] = useState<'login' | 'home' | 'services' | 'portfolio'>('login');
+  const [activePage, setActivePage] = useState<'login' | 'home' | 'services' | 'portfolio' | 'about'>('login');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user.email || 'Authenticated User');
+        setActivePage((prev) => (prev === 'login' ? 'home' : prev));
       } else {
         setCurrentUser(null);
+        setActivePage('login');
       }
     });
     return () => unsubscribe();
@@ -45,18 +48,42 @@ export default function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash;
-      if (hash === '#services-section') {
+      if (hash === '#services-section' || hash === '#services') {
         setActivePage('services');
       } else if (hash === '#portfolio') {
         setActivePage('portfolio');
+      } else if (hash === '#about' || hash === '#about-us' || hash === '#about-section') {
+        setActivePage('about');
       } else if (hash === '#login') {
-        setActivePage('login');
-      } else if (hash) {
-        // Any section anchor on the main page (#home, #configurator-anchor, #packages-anchor, #contact-section, etc.)
+        if (!auth.currentUser) {
+          setActivePage('login');
+        }
+      } else if (hash === '#configurator-anchor' || hash === '#packages-anchor') {
         setActivePage('home');
+        setTimeout(() => {
+          const el = document.getElementById('configurator-anchor') || document.getElementById('packages-anchor');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 120);
+      } else if (hash === '#home') {
+        setActivePage('home');
+      } else if (hash) {
+        setActivePage('home');
+        setTimeout(() => {
+          const targetId = hash.replace('#', '');
+          const el = document.getElementById(targetId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 120);
       } else {
-        // Default initial entry without hash
-        setActivePage('login');
+        // Initial entry without hash
+        if (auth.currentUser) {
+          setActivePage('home');
+        } else {
+          setActivePage('login');
+        }
       }
     };
     
@@ -271,7 +298,11 @@ export default function App() {
 
             {/* Nav links */}
             <nav className="hidden md:flex items-center gap-8 font-mono text-[11px] font-semibold text-neutral-400 tracking-widest uppercase">
-              <a href="#home" className={`relative flex flex-col items-center transition-colors ${activePage === 'home' ? 'text-white' : 'hover:text-white'}`}>
+              <a 
+                href="#home" 
+                onClick={(e) => { e.preventDefault(); setActivePage('home'); window.location.hash = '#home'; window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+                className={`relative flex flex-col items-center transition-colors cursor-pointer ${activePage === 'home' ? 'text-white' : 'hover:text-white'}`}
+              >
                 HOME
                 {activePage === 'home' && (
                   <>
@@ -280,7 +311,11 @@ export default function App() {
                   </>
                 )}
               </a>
-              <a href="#services-section" className={`relative flex flex-col items-center transition-colors ${activePage === 'services' ? 'text-white' : 'hover:text-white'}`}>
+              <a 
+                href="#services-section" 
+                onClick={(e) => { e.preventDefault(); setActivePage('services'); window.location.hash = '#services-section'; window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+                className={`relative flex flex-col items-center transition-colors cursor-pointer ${activePage === 'services' ? 'text-white' : 'hover:text-white'}`}
+              >
                 SERVICES
                 {activePage === 'services' && (
                   <>
@@ -289,9 +324,26 @@ export default function App() {
                   </>
                 )}
               </a>
-              <a href="#portfolio" className={`relative flex flex-col items-center transition-colors ${activePage === 'portfolio' ? 'text-white' : 'hover:text-white'}`}>
+              <a 
+                href="#portfolio" 
+                onClick={(e) => { e.preventDefault(); setActivePage('portfolio'); window.location.hash = '#portfolio'; window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+                className={`relative flex flex-col items-center transition-colors cursor-pointer ${activePage === 'portfolio' ? 'text-white' : 'hover:text-white'}`}
+              >
                 PORTFOLIO
                 {activePage === 'portfolio' && (
+                  <>
+                    <motion.span layoutId="nav-underline" className="absolute -bottom-1 w-full border-b-[1.5px] border-white"></motion.span>
+                    <motion.span layoutId="nav-dot" className="absolute -bottom-2.5 w-[3px] h-[3px] bg-white rounded-full"></motion.span>
+                  </>
+                )}
+              </a>
+              <a 
+                href="#about" 
+                onClick={(e) => { e.preventDefault(); setActivePage('about'); window.location.hash = '#about'; window.scrollTo({ top: 0, behavior: 'smooth' }); }} 
+                className={`relative flex flex-col items-center transition-colors cursor-pointer ${activePage === 'about' ? 'text-white' : 'hover:text-white'}`}
+              >
+                ABOUT US
+                {activePage === 'about' && (
                   <>
                     <motion.span layoutId="nav-underline" className="absolute -bottom-1 w-full border-b-[1.5px] border-white"></motion.span>
                     <motion.span layoutId="nav-dot" className="absolute -bottom-2.5 w-[3px] h-[3px] bg-white rounded-full"></motion.span>
@@ -358,27 +410,35 @@ export default function App() {
               >
                 <a 
                   href="#home" 
-                  onClick={() => { setActivePage('home'); setMobileMenuOpen(false); }}
-                  className={`flex items-center justify-between p-3 rounded-xl transition-colors ${activePage === 'home' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
+                  onClick={(e) => { e.preventDefault(); setActivePage('home'); setMobileMenuOpen(false); window.location.hash = '#home'; window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className={`flex items-center justify-between p-3 rounded-xl transition-colors cursor-pointer ${activePage === 'home' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
                 >
                   <span>HOME</span>
                   {activePage === 'home' && <span className="w-2 h-2 rounded-full bg-white" />}
                 </a>
                 <a 
                   href="#services-section" 
-                  onClick={() => { setActivePage('services'); setMobileMenuOpen(false); }}
-                  className={`flex items-center justify-between p-3 rounded-xl transition-colors ${activePage === 'services' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
+                  onClick={(e) => { e.preventDefault(); setActivePage('services'); setMobileMenuOpen(false); window.location.hash = '#services-section'; window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className={`flex items-center justify-between p-3 rounded-xl transition-colors cursor-pointer ${activePage === 'services' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
                 >
                   <span>SERVICES</span>
                   {activePage === 'services' && <span className="w-2 h-2 rounded-full bg-white" />}
                 </a>
                 <a 
                   href="#portfolio" 
-                  onClick={() => { setActivePage('portfolio'); setMobileMenuOpen(false); }}
-                  className={`flex items-center justify-between p-3 rounded-xl transition-colors ${activePage === 'portfolio' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
+                  onClick={(e) => { e.preventDefault(); setActivePage('portfolio'); setMobileMenuOpen(false); window.location.hash = '#portfolio'; window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className={`flex items-center justify-between p-3 rounded-xl transition-colors cursor-pointer ${activePage === 'portfolio' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
                 >
                   <span>PORTFOLIO</span>
                   {activePage === 'portfolio' && <span className="w-2 h-2 rounded-full bg-white" />}
+                </a>
+                <a 
+                  href="#about" 
+                  onClick={(e) => { e.preventDefault(); setActivePage('about'); setMobileMenuOpen(false); window.location.hash = '#about'; window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className={`flex items-center justify-between p-3 rounded-xl transition-colors cursor-pointer ${activePage === 'about' ? 'bg-white/10 text-white font-bold' : 'text-neutral-400 hover:bg-white/5 hover:text-white'}`}
+                >
+                  <span>ABOUT US</span>
+                  {activePage === 'about' && <span className="w-2 h-2 rounded-full bg-white" />}
                 </a>
               </motion.div>
             )}
@@ -388,6 +448,10 @@ export default function App() {
         {activePage === 'portfolio' ? (
           <main className="flex-grow pt-32 pb-20 relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
             <PortfolioSection />
+          </main>
+        ) : activePage === 'about' ? (
+          <main className="flex-grow pt-28 pb-20 relative z-10 w-full mx-auto bg-mesh text-on-background font-body-md">
+            <AboutUs accentColor={accentColor} />
           </main>
         ) : activePage === 'services' ? (
           <main className="flex-grow pt-32 relative z-10 w-full mx-auto bg-mesh text-on-background font-body-md">

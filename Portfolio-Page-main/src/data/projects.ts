@@ -33,7 +33,7 @@ export const PROJECTS: Project[] = [
     id: 'plant-workspace-design',
     title: 'Botanical Workspace & Studio',
     subtitle: 'Sustainable interior architecture and biophilic study',
-    category: 'Architecture',
+    category: 'Lifestyle',
     coverImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop',
     galleryImages: [
       'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop',
@@ -57,24 +57,24 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'code-editor-theme',
-    title: 'Obsidian Developer Environment',
-    subtitle: 'Next-gen code IDE interface & developer tools',
+    title: 'E-Commerce Website',
+    subtitle: 'High-conversion online store & digital marketplace',
     category: 'Web Apps',
-    coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop',
+    coverImage: '/img6.png',
     galleryImages: [
-      'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200&auto=format&fit=crop'
+      '/img6.png'
     ],
     description: 'Minimalist code interface tailored for full-stack engineers with intelligent syntax highlight contrast and embedded AI assistance.',
     fullDetails: {
-      overview: 'Obsidian IDE reimagines the modern coding environment with distraction-free typography, context-aware command palettes, and instant compiler diagnostics.',
+      overview: 'This Project reimagines the modern e-commerce storefront with distraction-free typography, fast shopping cart flows, and responsive UI components.',
       challenge: 'Reducing screen clutter and tab fatigue for developers working with large microservice repositories.',
       solution: 'Implemented collapsible sidebar trees, semantic color palettes, and single-click split panel view management.',
       deliverables: ['IDE Theme Package', 'UI Toolkit', 'VS Code Extension'],
       year: '2025',
-      client: 'Open Source Community',
+      client: 'ResiNova',
       role: 'UI/UX Engineer',
-      tools: ['TypeScript', 'Electron', 'Tailwind CSS']
+      tools: ['TypeScript', 'Tailwind CSS', 'React'],
+      liveUrl: 'https://resinovabyasmita.vercel.app/'
     },
     featuredInHero: true,
     fanAngle: -6,
@@ -83,24 +83,24 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'minimal-chair-furniture',
-    title: 'Form & Function Lounge Series',
-    subtitle: 'Ergonomic seating collection for modern interiors',
-    category: 'Architecture',
-    coverImage: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1200&auto=format&fit=crop',
+    title: 'Industrial Website',
+    subtitle: 'Robust digital platform for manufacturing & industrial enterprises',
+    category: 'Lifestyle',
+    coverImage: '/img7.png',
     galleryImages: [
-      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=1200&auto=format&fit=crop'
+      '/img7.png'
     ],
-    description: 'Precision engineered lounge seating crafted from recycled aluminum and Scandinavian oak wood.',
+    description: 'An automated resume analysis and ATS optimization system designed to help professionals craft high-impact resumes with clear feedback and bullet critiques.',
     fullDetails: {
-      overview: 'A sustainable furniture design project exploring minimal line profiles without compromising lumbar support or durability.',
-      challenge: 'Achieving structural stability with ultrathin 12mm metal profiles.',
-      solution: 'Internal tension rod geometry reinforced with aerospace-grade joinery.',
-      deliverables: ['Industrial Design Prototypes', 'Manufacturing CAD Files', 'Product Catalog'],
-      year: '2024',
-      client: 'Studio Malmö',
-      role: 'Industrial Product Designer',
-      tools: ['SolidWorks', 'KeyShot']
+      overview: 'An AI-assisted resume reviewing and ATS alignment platform designed around professional minimalism, focused critique flows, and keyword coverage.',
+      challenge: 'Parsing complex resume formatting structures while providing instant, actionable ATS feedback without noisy visual clutter.',
+      solution: 'Engineered a streamlined review interface featuring automated keyword coverage analysis, XYZ bullet critique scoring, and parser-safe formatting guidelines.',
+      deliverables: ['ATS Audit Engine', 'Resume Reviewer Dashboard', 'Impact Analysis Tool'],
+      year: '2025',
+      client: 'Hackathon',
+      role: 'Full-Stack Developer & UI/UX Designer',
+      tools: ['React', 'TypeScript', 'Tailwind CSS', 'NLP Parser'],
+      liveUrl: 'https://resume-reviewer-ecru.vercel.app/'
     },
     featuredInHero: true,
     fanAngle: -2,
@@ -109,24 +109,24 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'illustrator-typography-poster',
-    title: 'Illustrator Scalable Typography',
-    subtitle: 'Brand identity & vector graphics poster campaign',
-    category: 'Graphic Design',
-    coverImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
+    title: 'Bakery Website',
+    subtitle: 'Bespoke artisanal bakery online ordering & menu experience',
+    category: 'Webpage Design',
+    coverImage: '/img8.png',
     galleryImages: [
-      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1200&auto=format&fit=crop'
+      '/img8.png'
     ],
-    description: 'Vector artwork and typography poster design celebrating vector precision: "Illustrator is all around you. Drawings, Logos, Type. All perfectly scalable."',
+    description: 'An elegant digital storefront and online ordering platform for an artisanal bakery, featuring interactive menus, sweet treat showcases, and seamless ordering.',
     fullDetails: {
-      overview: 'A visual celebration of typographic structure, vector curves, and color gradients designed for creative studios and design exhibitions worldwide.',
-      challenge: 'Creating a high-impact artwork that remains crisp at billboard dimensions while maintaining subtle paper texture details.',
-      solution: 'Custom mathematical Bézier curve grid combined with bespoke serif display typeface design.',
-      deliverables: ['Exhibition Posters', 'Digital Brand Assets', 'Motion Design Vignettes'],
+      overview: 'A warm, handcrafted digital experience celebrating sweet delicacies, freshly baked goods, custom dessert orders, and seamless customer interactions.',
+      challenge: 'Capturing the warm, artisanal aesthetic of hand-crafted baking while maintaining sub-second mobile page loads and smooth online order routing.',
+      solution: 'Designed a warm typographic layout with high-contrast food imagery, an interactive digital menu, and streamlined online dessert reservation flows.',
+      deliverables: ['E-Commerce Bakery Storefront', 'Interactive Menu System', 'Online Ordering Flow'],
       year: '2025',
-      client: 'Creative Type Foundry',
-      role: 'Art Director & Typographer',
-      tools: ['Adobe Illustrator', 'InDesign', 'After Effects']
+      client: 'Sweet Delights Bakery',
+      role: 'Full-Stack Developer & UI/UX Designer',
+      tools: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+      liveUrl: 'https://bakery-demo-ten.vercel.app/'
     },
     featuredInHero: true,
     fanAngle: 2,
@@ -135,24 +135,24 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'pink-art-direction',
-    title: 'Magenta Expressionism & Editorial',
-    subtitle: 'Visual art direction and editorial fashion photography',
-    category: 'Photography',
-    coverImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop',
+    title: 'E-Commerce Website',
+    subtitle: 'Natural herbal beauty care & handmade e-commerce storefront',
+    category: 'Web Apps',
+    coverImage: '/img9.png',
     galleryImages: [
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop'
+      '/img9.png'
     ],
-    description: 'Vibrant studio photo series exploring tactile human interaction, color contrast, and bold backdrop compositions.',
+    description: 'An organic herbal beauty and skincare e-commerce platform bringing 100% handmade and natural beauty care products directly from nature to your skin.',
     fullDetails: {
-      overview: 'Commissioned editorial shoot featuring monochrome pink palettes, gesture photography, and sculptural studio lighting.',
-      challenge: 'Capturing precise skin tone fidelity under saturated monochromatic lighting gels.',
-      solution: 'Custom color grading profiles and dual-source continuous strobe balancing.',
-      deliverables: ['Print Lookbook', 'Editorial Magazine Spread', 'Social Media Campaign'],
+      overview: 'A natural herbal beauty storefront designed for Aarthi Herbalz, presenting handmade, chemical-free skin care remedies with seamless product discovery and checkout.',
+      challenge: 'Creating a clean, trustworthy botanical visual identity that highlights pure ingredients while maintaining high-converting e-commerce purchase flows.',
+      solution: 'Engineered a vibrant green botanical layout with high-resolution herbal product displays, custom product filtering, and instant checkout integration.',
+      deliverables: ['E-Commerce Skincare Storefront', 'Product Catalog', 'Checkout System'],
       year: '2025',
-      client: 'Vogue Culture Magazine',
-      role: 'Creative Director & Photographer',
-      tools: ['Hasselblad H6D', 'Capture One', 'Photoshop']
+      client: 'Aarthi Herbalz',
+      role: 'Full-Stack Developer & UI/UX Designer',
+      tools: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+      liveUrl: 'https://aarthiherbalz.vercel.app/'
     },
     featuredInHero: true,
     fanAngle: 6,
@@ -161,24 +161,24 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'urban-staircase-architecture',
-    title: 'Monolithic Urban Geometry',
-    subtitle: 'Architectural study of concrete and steel forms',
-    category: 'Architecture',
-    coverImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop',
+    title: 'Fitness Web',
+    subtitle: 'Personal training programs & high-performance fitness platform',
+    category: 'Web Apps',
+    coverImage: '/img10.png',
     galleryImages: [
-      'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop'
+      '/img10.png'
     ],
-    description: 'Dramatic architectural photography documenting structural stairways, industrial facades, and shadow play in urban capitals.',
+    description: 'A high-performance personal training and fitness coaching website featuring custom workout programs, session booking, and client transformation tracking.',
     fullDetails: {
-      overview: 'A photographic journey through modern European architecture, capturing the interplay between brutalist concrete and human scale.',
-      challenge: 'Executing long-exposure shots in public spaces without intrusive tourist crowds.',
-      solution: 'Dawn scouting combined with neutral density filter long exposures.',
-      deliverables: ['Fine Art Print Edition', 'Architectural Monograph'],
-      year: '2024',
-      client: 'Architectural Digest Series',
-      role: 'Architectural Photographer',
-      tools: ['Leica SL2', 'Lightroom Classic']
+      overview: 'A dynamic fitness coaching platform built around personalized training goals, free consultation scheduling, and interactive program exploration.',
+      challenge: 'Creating a high-energy, motivational UI with smooth session booking and instant program discovery for personal training clients.',
+      solution: 'Engineered a high-contrast dark theme with vibrant neon highlights, interactive program cards, and seamless session booking integration.',
+      deliverables: ['Fitness Coach Platform', 'Program Booking System', 'Client Transformation Portal'],
+      year: '2025',
+      client: 'Apex Performance Coaching',
+      role: 'Full-Stack Developer & UI/UX Designer',
+      tools: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+      liveUrl: 'https://trainer-demo-eight.vercel.app/'
     },
     featuredInHero: true,
     fanAngle: 10,
@@ -189,7 +189,7 @@ export const PROJECTS: Project[] = [
     id: 'wood-interior-workspace',
     title: 'Minimalist Loft & Craft Setup',
     subtitle: 'Natural timber interiors and focus workspace',
-    category: 'Architecture',
+    category: 'Lifestyle',
     coverImage: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop',
     galleryImages: [
       'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop',
@@ -263,7 +263,7 @@ export const PROJECTS: Project[] = [
     id: '3d-abstract-sculpture',
     title: 'Chromasphere 3D Motion',
     subtitle: 'Generative 3D shaders and fluid motion graphics',
-    category: 'Graphic Design',
+    category: 'Webpage Design',
     coverImage: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop',
     galleryImages: [
       'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop'

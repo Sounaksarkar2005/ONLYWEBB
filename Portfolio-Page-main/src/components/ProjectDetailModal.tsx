@@ -41,11 +41,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
               <span className="px-3 py-1 rounded-full bg-neutral-800 text-xs text-neutral-300 font-medium border border-neutral-700">
                 {project.category}
               </span>
-              {project.badgeText && (
-                <span className="hidden sm:inline-block px-2.5 py-1 rounded-full bg-white/10 text-xs text-neutral-300 font-mono">
-                  {project.badgeText}
-                </span>
-              )}
+
             </div>
 
             <button
@@ -213,7 +209,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                     rel="noreferrer"
                     className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-white text-black font-semibold text-sm hover:bg-neutral-200 transition-colors cursor-pointer"
                   >
-                    <span>Launch Prototype</span>
+                    <span>Website Link</span>
                     <ExternalLink className="w-4 h-4" />
                   </a>
                 )}

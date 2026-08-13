@@ -1,4 +1,17 @@
+import React from 'react';
+
 export default function CTA() {
+  const handlePricingClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    window.location.hash = '#configurator-anchor';
+    setTimeout(() => {
+      const el = document.getElementById('configurator-anchor') || document.getElementById('packages-anchor');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
     <section className="max-w-4xl mx-auto px-margin-mobile md:px-margin-desktop mt-12 sm:mt-16 md:mt-section-gap text-center relative z-20 mb-12 sm:mb-16 md:mb-section-gap">
       <div className="glass-panel rounded-2xl sm:rounded-3xl md:rounded-[3rem] p-6 sm:p-10 md:p-16 relative overflow-hidden">
@@ -9,6 +22,7 @@ export default function CTA() {
         </p>
         <a 
           href="#configurator-anchor" 
+          onClick={handlePricingClick}
           className="inline-block relative z-10 bg-primary rounded-full px-8 py-4 text-label-sm text-on-primary uppercase font-bold border border-white/20 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 cursor-pointer"
         >
           Start Your Project Now

@@ -49,7 +49,6 @@ export const FannedCardDeck: React.FC<FannedCardDeckProps> = ({
               animate={{ opacity: 1 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-neutral-400 font-mono tracking-wider uppercase"
             >
-              <Sparkles className="w-3.5 h-3.5 text-neutral-300" />
               <span>HOVER FLASHCARDS TO POP UP • CLICK TO VIEW</span>
             </motion.div>
           )}
@@ -127,14 +126,7 @@ export const FannedCardDeck: React.FC<FannedCardDeckProps> = ({
                 {/* Subtle top dark vignette overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 opacity-60 group-hover:opacity-40 transition-opacity" />
 
-                {/* Badge Tag Overlay on Card Top */}
-                {project.badgeText && (
-                  <div className="absolute top-2.5 left-2.5 right-2.5 flex justify-start z-10">
-                    <span className="px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-neutral-200 border border-white/15 truncate max-w-full shadow-lg">
-                      {project.badgeText}
-                    </span>
-                  </div>
-                )}
+
 
                 {/* Bottom Title Bar on Hover / Peek */}
                 <div className="absolute bottom-0 inset-x-0 p-3 flex flex-col justify-end bg-gradient-to-t from-black via-black/90 to-transparent">

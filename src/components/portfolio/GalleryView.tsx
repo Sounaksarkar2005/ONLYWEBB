@@ -12,8 +12,8 @@ interface GalleryViewProps {
 const CATEGORIES: ProjectCategory[] = [
   'All',
   'UI/UX Design',
-  'Graphic Design',
-  'Architecture',
+  'Webpage Design',
+  'Lifestyle',
   'Web Apps',
   'Photography',
   'Brand Identity',
@@ -70,7 +70,6 @@ export const GalleryView: React.FC<GalleryViewProps> = ({
         {/* Gallery Title Header */}
         <div className="space-y-3">
           <div className="flex items-center gap-2 text-xs font-semibold text-neutral-400 uppercase tracking-widest font-mono">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
             <span>Interactive Archive</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-white">

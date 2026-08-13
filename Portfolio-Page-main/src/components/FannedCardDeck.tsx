@@ -48,7 +48,6 @@ export const FannedCardDeck: React.FC<FannedCardDeckProps> = ({
               animate={{ opacity: 1 }}
               className="inline-flex items-center gap-1.5 text-xs text-neutral-400/80 font-medium tracking-wide uppercase"
             >
-              <Sparkles className="w-3 h-3 text-neutral-400" />
               <span>Hover cards to peek • Click to view project</span>
             </motion.div>
           )}
@@ -123,14 +122,7 @@ export const FannedCardDeck: React.FC<FannedCardDeckProps> = ({
                 {/* Dark Gradient Overlay for Legibility */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
 
-                {/* Optional Subtle Badge Text inside card (as in Illustrator / Centefields screenshots) */}
-                {project.badgeText && (
-                  <div className="absolute top-2 left-2 right-2 flex justify-start opacity-80 group-hover:opacity-100 transition-opacity">
-                    <span className="px-2 py-0.5 rounded bg-black/60 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-neutral-300 border border-white/10 truncate max-w-full">
-                      {project.badgeText}
-                    </span>
-                  </div>
-                )}
+
 
                 {/* Bottom Card Title Peek */}
                 <div className="absolute bottom-0 inset-x-0 p-2 sm:p-3 flex flex-col justify-end bg-gradient-to-t from-black via-black/80 to-transparent">
