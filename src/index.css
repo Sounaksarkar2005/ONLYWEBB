@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 html {
@@ -13,11 +13,16 @@ html {
 }
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Montserrat', 'Space Grotesk', sans-serif;
   --font-serif: "Playfair Display", Georgia, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   --font-brand: "CSRiposte", sans-serif;
+
+  --font-display-lg: 'Montserrat', sans-serif;
+  --font-headline-lg: 'Montserrat', sans-serif;
+  --font-label-sm: 'JetBrains Mono', monospace;
+  --font-body-md: 'Manrope', sans-serif;
 
   --color-background: #131313;
   --color-on-background: #e2e2e2;
@@ -96,28 +101,28 @@ html, body {
 
 @layer utilities {
   .text-display-lg {
-    font-family: var(--font-display, "Space Grotesk", sans-serif);
-    font-size: clamp(34px, 6.5vw, 80px);
+    font-family: var(--font-display-lg, 'Montserrat', sans-serif);
+    font-size: clamp(48px, 6vw, 80px);
     line-height: 1.1;
     letter-spacing: -0.02em;
     font-weight: 800;
   }
   .text-headline-lg {
-    font-family: var(--font-sans, "Inter", sans-serif);
-    font-size: clamp(24px, 4vw, 36px);
-    line-height: 1.25;
-    letter-spacing: 0.03em;
+    font-family: var(--font-headline-lg, 'Montserrat', sans-serif);
+    font-size: 32px;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
     font-weight: 700;
   }
   .text-label-sm {
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-family: var(--font-label-sm, 'JetBrains Mono', monospace);
     font-size: 12px;
     line-height: 1.4;
     letter-spacing: 0.1em;
     font-weight: 500;
   }
   .text-body-md {
-    font-family: var(--font-sans, "Inter", sans-serif);
+    font-family: var(--font-body-md, 'Manrope', sans-serif);
     font-size: 16px;
     line-height: 1.6;
     letter-spacing: 0.01em;
