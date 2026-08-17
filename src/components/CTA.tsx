@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function CTA() {
-  const handlePricingClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.location.hash = '#contact-section';
     setTimeout(() => {
@@ -22,7 +22,7 @@ export default function CTA() {
         </p>
         <a 
           href="#contact-section" 
-          onClick={handlePricingClick}
+          onClick={handleContactClick}
           className="inline-block relative z-10 bg-primary rounded-full px-8 py-4 text-label-sm text-on-primary uppercase font-bold border border-white/20 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 cursor-pointer"
         >
           Start Your Project Now

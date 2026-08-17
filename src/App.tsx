@@ -513,17 +513,13 @@ export default function App() {
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <label htmlFor="form-textarea-message" className="block font-mono text-[10px] text-neutral-400 uppercase tracking-widest">
-                            PROJECT DETAILS & PACKAGE SPECIFICATION
+                            PROJECT DETAILS & SPECIFICATIONS
                           </label>
-                          <span className="font-mono text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            PACKAGE & PRICING SYNCED
-                          </span>
                         </div>
                         <textarea
                           id="form-textarea-message"
                           rows={8}
-                          placeholder="Selected package details, pricing, and project requirements will appear here..."
+                          placeholder="Enter your project requirements, features, or any specific details here..."
                           value={formState.message}
                           onChange={(e) => setFormState(prev => ({ ...prev, message: e.target.value }))}
                           className="w-full bg-[#0c0c0c] border border-zinc-800 focus:border-zinc-600 rounded-xl px-4 py-3.5 text-xs font-mono leading-relaxed text-white placeholder-neutral-500 outline-none transition-colors resize-y"
