@@ -13,12 +13,9 @@ import Services from './components/Services';
 import Hero from './components/Hero';
 import CTA from './components/CTA';
 import PortfolioSection from './components/portfolio/PortfolioSection';
-import LoginPage from './components/LoginPage';
 import LegalModal from './components/LegalModal';
 import AboutUs from './components/AboutUs';
 import { CanvasConfig, AccentColor } from './types';
-import { auth } from './firebase';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export default function App() {
   const [accentColor, setAccentColor] = useState<AccentColor>('pure_mono');
@@ -29,21 +26,7 @@ export default function App() {
   // Real-time digital clock state
   const [timeStr, setTimeStr] = useState<string>('');
 
-  const [currentUser, setCurrentUser] = useState<string | null>(null);
-  const [activePage, setActivePage] = useState<'login' | 'home' | 'services' | 'portfolio' | 'about'>('login');
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user.email || 'Authenticated User');
-        setActivePage((prev) => (prev === 'login' ? 'home' : prev));
-      } else {
-        setCurrentUser(null);
-        setActivePage('login');
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+  const [activePage, setActivePage] = useState<'home' | 'services' | 'portfolio' | 'about'>('home');
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -54,10 +37,6 @@ export default function App() {
         setActivePage('portfolio');
       } else if (hash === '#about' || hash === '#about-us' || hash === '#about-section') {
         setActivePage('about');
-      } else if (hash === '#login') {
-        if (!auth.currentUser) {
-          setActivePage('login');
-        }
       } else if (hash === '#configurator-anchor' || hash === '#packages-anchor') {
         setActivePage('home');
         setTimeout(() => {
@@ -79,11 +58,7 @@ export default function App() {
         }, 120);
       } else {
         // Initial entry without hash
-        if (auth.currentUser) {
-          setActivePage('home');
-        } else {
-          setActivePage('login');
-        }
+        setActivePage('home');
       }
     };
     
@@ -258,24 +233,7 @@ export default function App() {
     }
   };
 
-  if (activePage === 'login') {
-    return (
-      <LoginPage 
-        onLoginSuccess={(email) => {
-          setCurrentUser(email);
-          setTimeout(() => {
-            setActivePage('home');
-            window.location.hash = '#home';
-          }, 600);
-        }}
-        onExploreGuest={() => {
-          setActivePage('home');
-          window.location.hash = '#home';
-        }}
-        currentUserEmail={currentUser}
-      />
-    );
-  }
+
 
   return (
     <div id="main-landing-app" className="relative min-h-screen bg-[#050505] text-white font-sans overflow-x-hidden scanline-overlay selection:bg-white selection:text-black">
@@ -354,40 +312,22 @@ export default function App() {
 
             {/* Right side: Time / Button / Mobile Toggle */}
             <div className="flex items-center gap-3 sm:gap-6">
-              {/* Server Clock */}
-              <div className="hidden lg:flex items-center gap-2 font-mono text-[10px] text-neutral-500">
-                <span className="block text-[8px] text-neutral-600 text-right">SERVER CLOCK</span>
-                <span className="text-neutral-300 tracking-wide font-medium">{timeStr || '00:00:00 UTC'}</span>
-              </div>
-              
-              {currentUser ? (
-                <button 
-                  onClick={async () => {
-                    await signOut(auth);
-                    setCurrentUser(null);
-                    setActivePage('login');
-                    window.location.hash = '#login';
-                  }}
-                  className="flex items-center gap-2 bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 px-3 sm:px-4 py-2 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase transition-colors cursor-pointer"
-                  title="Click to Logout"
-                >
-                  LOGOUT ({currentUser.split('@')[0]})
-                </button>
-              ) : (
-                <a 
-                  href="#login"
-                  onClick={() => {
-                    setActivePage('login');
-                    window.location.hash = '#login';
-                  }}
-                  className="flex items-center gap-2 bg-white text-black px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors cursor-pointer"
-                >
-                  LOGIN
-                  <ArrowRight className="w-3 h-3" />
-                </a>
-              )}
-
-              {/* Mobile Menu Hamburger Toggle */}
+              <a 
+                href="#configurator-anchor"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActivePage('home');
+                  window.location.hash = '#configurator-anchor';
+                  setTimeout(() => {
+                    const el = document.getElementById('configurator-anchor') || document.getElementById('project-configurator-container');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }, 100);
+                }}
+                className="flex items-center gap-2 bg-white text-black px-4 sm:px-5 py-2 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors cursor-pointer shadow-md"
+              >
+                GET STARTED
+                <ArrowRight className="w-3 h-3" />
+              </a>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="md:hidden p-2 rounded-full text-neutral-300 hover:text-white bg-white/5 border border-white/10 cursor-pointer"
