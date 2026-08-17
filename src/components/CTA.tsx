@@ -3,9 +3,9 @@ import React from 'react';
 export default function CTA() {
   const handlePricingClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    window.location.hash = '#configurator-anchor';
+    window.location.hash = '#contact-section';
     setTimeout(() => {
-      const el = document.getElementById('configurator-anchor') || document.getElementById('packages-anchor');
+      const el = document.getElementById('contact-section');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
@@ -21,7 +21,7 @@ export default function CTA() {
           Partner with ONLYWEBB to architect your digital future. Our systems are built for those who demand excellence.
         </p>
         <a 
-          href="#configurator-anchor" 
+          href="#contact-section" 
           onClick={handlePricingClick}
           className="inline-block relative z-10 bg-primary rounded-full px-8 py-4 text-label-sm text-on-primary uppercase font-bold border border-white/20 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all duration-300 cursor-pointer"
         >

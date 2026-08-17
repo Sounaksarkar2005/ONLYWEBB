@@ -8,7 +8,6 @@ import {
 import BackgroundCanvas from './components/BackgroundCanvas';
 
 import ServiceCards from './components/ServiceCards';
-import ServiceConfigurator from './components/ServiceConfigurator';
 import Services from './components/Services';
 import Hero from './components/Hero';
 import CTA from './components/CTA';
@@ -37,10 +36,10 @@ export default function App() {
         setActivePage('portfolio');
       } else if (hash === '#about' || hash === '#about-us' || hash === '#about-section') {
         setActivePage('about');
-      } else if (hash === '#configurator-anchor' || hash === '#packages-anchor') {
+      } else if (hash === '#contact-section' || hash === '#contact' || hash === '#configurator-anchor' || hash === '#packages-anchor') {
         setActivePage('home');
         setTimeout(() => {
-          const el = document.getElementById('configurator-anchor') || document.getElementById('packages-anchor');
+          const el = document.getElementById('contact-section');
           if (el) {
             el.scrollIntoView({ behavior: 'smooth' });
           }
@@ -127,45 +126,13 @@ export default function App() {
     }));
   };
 
-  // When user triggers service spec config
+  // When user triggers service selection
   const handleSelectService = (serviceTitle: string) => {
     setFocusedService(serviceTitle);
-    const target = document.getElementById('project-configurator-container');
+    const target = document.getElementById('contact-section');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
-
-  // Handler for transferring locked specification to Project Details form field
-  const handleLockSpecification = (specSummaryText: string) => {
-    setFormState(prev => {
-      const existing = prev.message;
-      if (!existing) {
-        return { ...prev, message: specSummaryText };
-      }
-      if (existing.includes('=== SELECTED PACKAGE & PRICING SUMMARY ===')) {
-        const parts = existing.split('=== SELECTED PACKAGE & PRICING SUMMARY ===');
-        const userNotesBefore = parts[0].trim();
-        const endSplit = parts[1] ? parts[1].split('===========================================') : [];
-        const userNotesAfter = endSplit[1] ? endSplit[1].trim() : '';
-
-        let result = specSummaryText;
-        if (userNotesBefore) result = `${userNotesBefore}\n\n${result}`;
-        if (userNotesAfter) result = `${result}\n\n${userNotesAfter}`;
-        return { ...prev, message: result };
-      }
-      if (existing.includes('[SELECTED SPECIFICATION DETAILS]')) {
-        const userNotesBefore = existing.split('[SELECTED SPECIFICATION DETAILS]')[0].trim();
-        return {
-          ...prev,
-          message: userNotesBefore ? `${userNotesBefore}\n\n${specSummaryText}` : specSummaryText
-        };
-      }
-      return {
-        ...prev,
-        message: `${existing}\n\n${specSummaryText}`
-      };
-    });
   };
 
   // Form Submission
@@ -313,19 +280,19 @@ export default function App() {
             {/* Right side: Time / Button / Mobile Toggle */}
             <div className="flex items-center gap-3 sm:gap-6">
               <a 
-                href="#configurator-anchor"
+                href="#contact-section"
                 onClick={(e) => {
                   e.preventDefault();
                   setActivePage('home');
-                  window.location.hash = '#configurator-anchor';
+                  window.location.hash = '#contact-section';
                   setTimeout(() => {
-                    const el = document.getElementById('configurator-anchor') || document.getElementById('project-configurator-container');
+                    const el = document.getElementById('contact-section');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }, 100);
                 }}
                 className="flex items-center gap-2 bg-white text-black px-4 sm:px-5 py-2 rounded-full font-mono text-[10px] font-bold tracking-widest uppercase hover:bg-neutral-200 transition-colors cursor-pointer shadow-md"
               >
-                GET STARTED
+                GET IN TOUCH
                 <ArrowRight className="w-3 h-3" />
               </a>
               <button
@@ -448,10 +415,10 @@ export default function App() {
                 className="flex flex-col sm:flex-row gap-4 mt-10 justify-center w-full max-w-md"
               >
                 <a
-                  href="#project-configurator-container"
+                  href="#contact-section"
                   className={`py-4 px-8 rounded-xl font-bold text-xs uppercase tracking-widest text-black shadow-xl transition-all duration-300 hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-2 cursor-pointer ${getAccentBg()}`}
                 >
-                  Configure Specifications
+                  Get In Touch
                   <ArrowRight className="w-4 h-4" />
                 </a>
 
@@ -476,15 +443,7 @@ export default function App() {
               />
             </section>
 
-            {/* Interactive Spec Configurator / Package Section */}
-            <section id="configurator-anchor" className="py-20 lg:py-32 bg-neutral-950/20 border-t border-white/5 relative">
-              <div id="packages-anchor" className="absolute -top-24" />
-              <ServiceConfigurator 
-                accentColor={accentColor} 
-                initialServiceFocus={focusedService}
-                onLockSpecification={handleLockSpecification}
-              />
-            </section>
+
 
             {/* Contact/Brief Form Section */}
             <section id="contact-section" className="py-20 lg:py-32 max-w-4xl mx-auto px-4 md:px-8 space-y-12">
