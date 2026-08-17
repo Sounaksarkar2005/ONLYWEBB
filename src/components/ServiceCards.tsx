@@ -205,7 +205,7 @@ export default function ServiceCards({ accentColor, onCardHover, onSelectService
                   onClick={() => onSelectService(service.title)}
                   className={`px-3 py-1.5 rounded-lg border text-[10px] uppercase tracking-wider font-semibold transition-all duration-300 cursor-pointer ${getAccentBg()}`}
                 >
-                  Configure Spec
+                  Select Service
                 </button>
               </div>
             </motion.div>
