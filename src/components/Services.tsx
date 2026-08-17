@@ -25,8 +25,8 @@ export default function Services() {
                 WebGL & Motion Engine Experiences
               </li>
             </ul>
-            <a href="#configurator-anchor" className="inline-flex items-center gap-2 text-label-sm text-primary uppercase hover:text-primary-fixed transition-colors">
-              Explore Technical Specs <span className="material-symbols-outlined">arrow_forward</span>
+            <a href="#contact-section" className="inline-flex items-center gap-2 text-label-sm text-primary uppercase hover:text-primary-fixed transition-colors">
+              Get In Touch <span className="material-symbols-outlined">arrow_forward</span>
             </a>
           </div>
         </div>
