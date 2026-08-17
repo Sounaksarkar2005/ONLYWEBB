@@ -34,7 +34,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'm2',
     name: 'Vishal Tilak',
-    role: 'Social Media Manager',
+    role: 'Co-Founder & Social Media Manager',
     bio: 'Directing multi-platform content campaigns, audience engagement strategies, and the REACH social growth framework.',
     skills: ['Social Strategy', 'Content Direction', 'REACH Protocol', 'Growth Analytics'],
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop',
@@ -43,19 +43,19 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 'm3',
     name: 'Soham Bhattacharyya',
-    role: 'UI/UX Director and Designer',
+    role: 'Co-Founder & UI/UX Director',
     bio: 'Crafting intuitive user journeys, high-contrast dark mode design tokens, and converted brand experiences.',
     skills: ['UX Architecture', 'Figma Tokens', 'User Research', 'Design Systems'],
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop',
+    image: '/img12.jpg',
     experienceYears: '2+ YRS',
   },
   {
     id: 'm4',
     name: 'Anasuya Chatterjee',
-    role: 'Growth & Analytics Engineer',
+    role: 'Co-Founder & Growth Engineer',
     bio: 'Architecting precision lead generation funnels, automated marketing workflows, and multichannel telemetry.',
     skills: ['Conversion Funnels', 'Analytics Telemetry', 'SEO Architecture', 'REACH Protocol'],
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop',
+    image: '/img11.jpg',
     experienceYears: '2+ YRS',
   },
 ];
